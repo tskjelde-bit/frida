@@ -1,212 +1,583 @@
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advokatfirmaet | Ekspertise & Integritet</title>
-    <meta name="description" content="Premium juridisk bistand for moderne klienter.">
+    <title>Frida til Bryn Aarflot | LinkedIn Strategi</title>
+    <meta name="description" content="Profesjonell LinkedIn-strategi for en karriere i IP-jus.">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
     <header id="main-header">
         <div class="container header-content">
-            <a href="#" class="logo">
-                <span class="logo-symbol">⚖</span>
-                <span class="logo-text">Advokatfirmaet</span>
-            </a>
-            <nav id="main-nav">
-                <ul>
-                    <li><a href="#om">Om Oss</a></li>
-                    <li><a href="#tjenester">Kompetanseområder</a></li>
-                    <li><a href="#team">Vårt Team</a></li>
-                    <li><a href="#kontakt" class="btn btn-primary">Kontakt Oss</a></li>
-                </ul>
-            </nav>
-            <button id="mobile-menu-toggle" aria-label="Meny">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="brand">
+                <h1>Frida til Bryn Aarflot</h1>
+                <p class="subtitle">Din profesjonelle LinkedIn-strategi for en karriere i IP-jus</p>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>Fremdrift</span>
+                    <span id="progressText">0% fullført</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-overlay"></div>
-            <div class="container hero-content">
-                <h1 class="fade-in-up">Juridisk Ekspertise.<br>Urokkelig Integritet.</h1>
-                <p class="fade-in-up delay-1">Vi leverer skreddersydde juridiske løsninger for komplekse utfordringer. Din trygghet er vårt ansvar.</p>
-                <div class="hero-actions fade-in-up delay-2">
-                    <a href="#kontakt" class="btn btn-primary">Bestill Konsultasjon</a>
-                    <a href="#tjenester" class="btn btn-outline">Se Våre Tjenester</a>
-                </div>
-            </div>
-        </section>
+    <main class="container">
 
-        <section id="stats" class="stats-section">
-            <div class="container">
-                <div class="stat-item">
-                    <span class="stat-number" data-target="25">0</span>
-                    <span class="stat-label">Års Erfaring</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="500">0</span>
-                    <span class="stat-label">Saker Vunnet</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="100">0</span>
-                    <span class="stat-label">Prosent Dedikasjon</span>
-                </div>
-            </div>
-        </section>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'tab1')"><i class="fas fa-clipboard-list"></i>
+                Profil-optimalisering</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab2')"><i class="fas fa-pen-fancy"></i>
+                Content-strategi</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab3')"><i class="fas fa-handshake"></i>
+                Nettverksbygging</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab4')"><i class="fas fa-rocket"></i> Proaktive
+                tiltak</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab5')"><i class="fas fa-eye"></i> Bli synlig</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab6')"><i class="fas fa-calendar-alt"></i>
+                Content-kalender</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab7')"><i class="fas fa-chart-line"></i> Målinger</button>
+        </nav>
 
-        <section id="om" class="section">
-            <div class="container split-layout">
-                <div class="content-col">
-                    <h2 class="section-title">Om Firmaet</h2>
-                    <p class="lead">Vi kombinerer dyp juridisk innsikt med en moderne tilnærming til problemløsning.</p>
-                    <p>Vårt firma er bygget på prinsippene om tillit, diskresjon og resultater. Vi forstår at hver sak er unik, og vi tilnærmer oss hver klient med dedikasjon og presisjon. Våre advokater har bred erfaring fra både forretningsjus og privatrett, og vi står klare til å beskytte dine interesser.</p>
-                    <a href="#team" class="text-link">Møt våre advokater →</a>
-                </div>
-                <div class="image-col">
-                    <div class="image-wrapper">
-                        <!-- Placeholder image, will be replaced or styled -->
-                        <div class="placeholder-img"></div> 
-                    </div>
-                </div>
+        <!-- Tab 1: Profil-optimalisering -->
+        <div id="tab1" class="tab-content active">
+            <div class="motivational">
+                "Første inntrykk betyr alt på LinkedIn. La oss gjøre profilen din uimotståelig."
             </div>
-        </section>
 
-        <section id="tjenester" class="section bg-light">
-            <div class="container">
-                <div class="section-header text-center">
-                    <h2 class="section-title">Våre Kompetanseområder</h2>
-                    <p class="section-subtitle">Spesialisert bistand innen sentrale rettsområder.</p>
-                </div>
-                <div class="grid-3">
-                    <div class="card service-card">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-briefcase"></i> <!-- Placeholder icon -->
-                        </div>
-                        <h3>Forretningsjus</h3>
-                        <p>Strategisk rådgivning for bedrifter i alle faser, fra oppstart til fusjoner og oppkjøp.</p>
-                    </div>
-                    <div class="card service-card">
-                        <div class="icon-wrapper">
-                             <i class="fas fa-home"></i>
-                        </div>
-                        <h3>Eiendom & Entreprise</h3>
-                        <p>Juridisk bistand ved kjøp, salg, utvikling og tvister knyttet til fast eiendom.</p>
-                    </div>
-                    <div class="card service-card">
-                        <div class="icon-wrapper">
-                             <i class="fas fa-users"></i>
-                        </div>
-                        <h3>Familie & Arv</h3>
-                        <p>Diskret og empatisk håndtering av skifte, arveoppgjør og familierettslige spørsmål.</p>
-                    </div>
-                    <div class="card service-card">
-                        <div class="icon-wrapper">
-                             <i class="fas fa-gavel"></i>
-                        </div>
-                        <h3>Strafferett</h3>
-                        <p>Forsvar av dine rettigheter med grundighet og engasjement i alle rettsinstanser.</p>
-                    </div>
-                    <div class="card service-card">
-                        <div class="icon-wrapper">
-                             <i class="fas fa-file-contract"></i>
-                        </div>
-                        <h3>Arbeidsrett</h3>
-                        <p>Bistand til både arbeidsgivere og arbeidstakere i spørsmål om ansettelse og oppsigelse.</p>
-                    </div>
-                    <div class="card service-card">
-                        <div class="icon-wrapper">
-                             <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <h3>Tvisteløsning</h3>
-                        <p>Effektiv håndtering av konflikter gjennom forhandlinger, mekling eller prosedyre.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="section card">
+                <h2>1. Overskrift (Headline)</h2>
+                <p>Dette er det første folk ser - gjør det relevant!</p>
 
-        <section id="cta" class="cta-section">
-            <div class="container">
-                <h2>Trenger du juridisk bistand?</h2>
-                <p>Kontakt oss i dag for en uforpliktende samtale om din sak.</p>
-                <a href="#kontakt" class="btn btn-light">Ta Kontakt</a>
-            </div>
-        </section>
+                <h4>Eksempler på gode overskrifter:</h4>
+                <div class="example-box">
+                    <pre>Jurist med lidenskap for immaterialrett | Interesse for innovasjon og IP-strategi</pre>
+                </div>
+                <div class="example-box">
+                    <pre>Nyutdannet jurist | Spesialisering i opphavsrett og varemerkerett</pre>
+                </div>
+                <div class="example-box">
+                    <pre>IP-entusiast | Jurist med fokus på teknologi og kreative næringer</pre>
+                </div>
 
-        <section id="kontakt" class="section">
-            <div class="container split-layout">
-                <div class="info-col">
-                    <h2 class="section-title">Kontakt Oss</h2>
-                    <p>Vi er her for å hjelpe deg. Fyll ut skjemaet eller kontakt oss direkte.</p>
-                    
-                    <div class="contact-details">
-                        <div class="detail-item">
-                            <strong>Adresse:</strong><br>
-                            Advokatveien 1, 0123 Oslo
-                        </div>
-                        <div class="detail-item">
-                            <strong>Telefon:</strong><br>
-                            +47 22 00 00 00
-                        </div>
-                        <div class="detail-item">
-                            <strong>E-post:</strong><br>
-                            post@advokatfirmaet.no
-                        </div>
+                <div class="tips-box">
+                    <h4>💡 Tips:</h4>
+                    <p>Bryn Aarflot scroller trolig gjennom mange profiler. Vis umiddelbart at du er interessert i IP!
+                    </p>
+                </div>
+            </div>
+
+            <div class="section card">
+                <h2>2. Om meg-seksjonen (About)</h2>
+                <p>Dette er din "elevator pitch". Struktur:</p>
+                <ul>
+                    <li><strong>Åpning:</strong> Hva driver deg? (1-2 setninger)</li>
+                    <li><strong>Kompetanse:</strong> Hva kan du? (2-3 setninger)</li>
+                    <li><strong>Interesse:</strong> Hvorfor IP? (2-3 setninger)</li>
+                    <li><strong>Fremtid:</strong> Hva søker du? (1-2 setninger)</li>
+                </ul>
+
+                <div class="example-box">
+                    <pre>Jeg brenner for skjæringspunktet mellom jus, innovasjon og kreativitet. 
+Som nyutdannet jurist er jeg fascinert av hvordan immaterialrett beskytter 
+og skaper verdi for både oppstartsbedrifter og etablerte selskaper.
+
+Gjennom studiene har jeg fordypet meg særlig i varemerkerett og 
+opphavsrett, og skrevet masteroppgave om [relevant tema]. Jeg har også 
+erfaring fra [relevant verv/jobb] hvor jeg jobbet med [IP-relatert].
+
+Det som engasjerer meg mest ved IP-feltet er hvordan det driver innovasjon 
+fremover og beskytter kreativitet. Jeg følger særlig utviklingen innen 
+AI og immaterialrett, og ser hvordan dette feltet blir stadig viktigere 
+i en digital økonomi.
+
+Jeg søker nå muligheter til å bygge en karriere innen immaterialrett, 
+gjerne i et miljø som kombinerer faglig tyngde med arbeid for innovative 
+og bærekraftige løsninger.</pre>
+                </div>
+            </div>
+
+            <div class="section card">
+                <h2>3. Erfaring-seksjonen</h2>
+                <p>Selv om du ikke har IP-erfaring ennå, kan du vinkle det du har:</p>
+
+                <h4>Eksempel - studentjobb hos advokatfirma:</h4>
+                <div class="example-box">
+                    <pre>Advokatfullmektig, [Firma] | Jan 2024 - nå
+• Utarbeidet juridiske vurderinger innen kontraktsrett med fokus på 
+  intellektuelle rettigheter i samarbeidsavtaler
+• Gjennomgikk og kvalitetssikret dokumentasjon for lisensavtaler
+• Analyserte markedsføringskampanjer med hensyn til markedsføringslovgivning</pre>
+                </div>
+
+                <div class="tips-box">
+                    <h4>💡 Tips:</h4>
+                    <ul>
+                        <li>Bruk action-verbs: "Utarbeidet", "Analyserte", "Rådga"</li>
+                        <li>Fremhev overførbare ferdigheter</li>
+                        <li>Koble til IP der det er mulig</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section card">
+                <h2>4. Utdanning-seksjonen</h2>
+                <div class="example-box">
+                    <pre>Master i rettsvitenskap, [Universitet] | 2019-2024
+• Masteroppgave: [Tittel hvis IP-relatert]
+• Relevante emner: Immaterialrett, Opphavsrett, Markedsføringsrett, 
+  Kontraktsrett, IT-rett
+• Karakter: [hvis bra - ellers utelat]
+• Aktiv i [relevante foreninger, f.eks. Juridisk fagutvalg]</pre>
+                </div>
+            </div>
+
+            <div class="section card">
+                <h2>5. Ferdigheter (Skills)</h2>
+                <p>Legg til disse og be om endorsements:</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Juridiske:</h3>
+                        <ul class="checklist">
+                            <li onclick="toggleCheck(this)">Immaterialrett</li>
+                            <li onclick="toggleCheck(this)">Varemerkerett</li>
+                            <li onclick="toggleCheck(this)">Opphavsrett</li>
+                            <li onclick="toggleCheck(this)">Patentrett</li>
+                            <li onclick="toggleCheck(this)">Kontraktsrett</li>
+                            <li onclick="toggleCheck(this)">Markedsføringsrett</li>
+                            <li onclick="toggleCheck(this)">Juridisk analyse</li>
+                            <li onclick="toggleCheck(this)">Legal research</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Tekniske/andre:</h3>
+                        <ul class="checklist">
+                            <li onclick="toggleCheck(this)">Microsoft Office</li>
+                            <li onclick="toggleCheck(this)">Juridiske databaser</li>
+                            <li onclick="toggleCheck(this)">Engelsk (flytende)</li>
+                            <li onclick="toggleCheck(this)">[Andre språk]</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="form-col">
-                    <form id="contact-form" class="premium-form">
-                        <div class="form-group">
-                            <label for="name">Navn</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-post</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Melding</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Send Melding</button>
-                    </form>
+            </div>
+
+            <div class="section card">
+                <h2>6. Anbefalinger</h2>
+                <p>Be om anbefalinger fra:</p>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Tidligere veiledere/professorer (særlig hvis de kan bekrefte
+                        IP-interesse)</li>
+                    <li onclick="toggleCheck(this)">Arbeidsgivere</li>
+                    <li onclick="toggleCheck(this)">Kolleger fra frivillig arbeid</li>
+                </ul>
+                <div class="tips-box">
+                    <h4>💡 Tips:</h4>
+                    <p>Gi dem et utkast de kan bygge på!</p>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Tab 2: Content-strategi -->
+        <div id="tab2" class="tab-content">
+            <div class="motivational">
+                "Content er kongen på LinkedIn. La oss lage innhold som viser din ekspertise."
+            </div>
+
+            <div class="section card">
+                <h2>Hva skal du poste om?</h2>
+                <p><strong>Hovedtemaer (rotér mellom disse):</strong></p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-newspaper"></i> IP-nyheter og utviklingstrekk</li>
+                    <li><i class="fas fa-lightbulb"></i> Refleksjoner om jus og innovasjon</li>
+                    <li><i class="fas fa-book-reader"></i> Læring og faglig utvikling</li>
+                    <li><i class="fas fa-leaf"></i> Bærekraft og fremtidsteknologi</li>
+                    <li><i class="fas fa-user-tie"></i> Personlig merkevarebygging</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>Ukentlig content-plan</h2>
+
+                <div class="calendar grid-2">
+                    <div class="week-card">
+                        <h4>Uke 1: IP-nyheter</h4>
+                        <p>Del en relevant IP-nyhet (norsk eller internasjonal) og legg til egen kommentar (3-5
+                            setninger)</p>
+                    </div>
+
+                    <div class="week-card">
+                        <h4>Uke 2: Lærings-post</h4>
+                        <p>Del noe du har lært (bok, artikkel, kurs)</p>
+                    </div>
+
+                    <div class="week-card">
+                        <h4>Uke 3: Tankeledelse</h4>
+                        <p>Del dine tanker om et IP-tema</p>
+                    </div>
+
+                    <div class="week-card">
+                        <h4>Uke 4: Personlig/karriere</h4>
+                        <p>Del milepæler, kurs, networking</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section card">
+                <h2>Eksempel-poster</h2>
+
+                <h3>Uke 1: IP-nyheter</h3>
+                <div class="example-box">
+                    <pre>EU-domstolen avgjorde nylig at [sammendrag av sak]. 
+
+Dette viser hvor komplekst varemerkeretten blir i en digital tidsalder. 
+Særlig interessant er hvordan domstolen balanserer merkevareeieres 
+rettigheter mot forbrukernes interesser.
+
+Hva tenker andre jurister om dette? Ser dere samme utfordringer 
+i norsk rett?
+
+#immaterialrett #varemerkerett #juridisk</pre>
+                </div>
+
+                <h3>Uke 2: Læring</h3>
+                <div class="example-box">
+                    <pre>Nettopp ferdig med artikkelen "AI and Copyright - The Norwegian 
+Perspective" av [forfatter]. 
+
+Tre viktige takeaways:
+1) [punkt]
+2) [punkt]  
+3) [punkt]
+
+Dette feltet utvikler seg så raskt at kontinuerlig læring er 
+essensielt. Noen som har gode ressurser å dele om AI og IP?
+
+#immaterialrett #AI #opphavsrett</pre>
+                </div>
+
+                <h3>Uke 3: Tankeledelse</h3>
+                <div class="example-box">
+                    <pre>Hvorfor er IP viktigere enn noen gang for norske oppstartsbedrifter?
+
+Etter å ha fulgt flere norske tech-startups ser jeg et mønster: 
+De som sikrer sin IP tidlig, får bedre investorer og høyere 
+verdsettelse.
+
+Men mange gründere tenker ikke på dette før det er for sent. 
+IP-strategi burde være en naturlig del av enhver forretningsplan.
+
+Hva er deres erfaring? Når bør startups begynne å tenke IP?
+
+#startup #innovasjon #immaterialrett</pre>
+                </div>
+
+                <h3>Uke 4: Personlig</h3>
+                <div class="example-box">
+                    <pre>Inspirerende foredrag i dag om fremtidens IP-landskap v/[navn] 
+hos [organisasjon]! 
+
+Viktigste læringen: IP-rådgivere må bli bedre på tverrfaglig 
+samarbeid mellom jus, teknologi og business.
+
+Takk til [tag organisasjon] for et flott arrangement!
+
+#immaterialrett #fagligutvikling</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Nettverksbygging -->
+        <div id="tab3" class="tab-content">
+            <div class="motivational">
+                "Ditt nettverk er din nettoverdi. La oss bygge de riktige forbindelsene."
+            </div>
+
+            <div class="section card">
+                <h2>1. Følg og engasjer med Bryn Aarflot-ansatte</h2>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Finn ansatte hos Bryn Aarflot (bruk LinkedIn-søk)</li>
+                    <li onclick="toggleCheck(this)">Gå til "Ansatte" på firmaprofilen</li>
+                    <li onclick="toggleCheck(this)">Følg 10-15 av deres advokater/patentrådgivere</li>
+                    <li onclick="toggleCheck(this)">Sett på varsler for deres innlegg</li>
+                    <li onclick="toggleCheck(this)">Kommenter gjennomtenkt på innholdet deres</li>
+                </ul>
+
+                <h4>Eksempel på god kommentar:</h4>
+                <div class="example-box">
+                    <pre>Veldig interessant poeng om [tema]! Jeg skrev om noe lignende 
+i min masteroppgave, og det er spennende å se hvordan praksis 
+utvikler seg. Takk for innblikket!</pre>
+                </div>
+            </div>
+
+            <div class="section card">
+                <h2>2. Følg relevante organisasjoner</h2>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">NIR - Norsk forening for industriell rettsbeskyttelse</li>
+                    <li onclick="toggleCheck(this)">Opphavsrettsforeningen</li>
+                    <li onclick="toggleCheck(this)">Norsk Patentforening</li>
+                    <li onclick="toggleCheck(this)">Innovasjon Norge</li>
+                    <li onclick="toggleCheck(this)">Bryn Aarflot (selskapet)</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>3. Delta i diskusjoner</h2>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Kommenter på innlegg fra IP-eksperter</li>
+                    <li onclick="toggleCheck(this)">Del relevante artikler med egen kommentar</li>
+                    <li onclick="toggleCheck(this)">Still gode spørsmål</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tab 4: Proaktive tiltak -->
+        <div id="tab4" class="tab-content">
+            <div class="motivational">
+                "Vent ikke på muligheter - skap dem!"
+            </div>
+
+            <div class="section card">
+                <h2>1. Publiser artikler på LinkedIn</h2>
+                <p>Skriv 1-2 lengre artikler per år om IP-temaer du brenner for.</p>
+
+                <h4>Tema-forslag:</h4>
+                <ul class="feature-list">
+                    <li>"5 ting jeg skulle ønske jeg lærte tidligere om immaterialrett"</li>
+                    <li>"Hvordan norske startups kan beskytte sin IP internasjonalt"</li>
+                    <li>"AI og opphavsrett: Utfordringer og muligheter"</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>2. Lag en Featured-seksjon</h2>
+                <p>Pin viktig innhold øverst på profilen:</p>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Masteroppgave (hvis IP-relatert)</li>
+                    <li onclick="toggleCheck(this)">Beste artikler du har skrevet</li>
+                    <li onclick="toggleCheck(this)">Presentasjoner du har holdt</li>
+                    <li onclick="toggleCheck(this)">Relevante prosjekter</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>3. Oppdater regelmessig</h2>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Minst 1 post per uke</li>
+                    <li onclick="toggleCheck(this)">Liker/kommenterer 3-5 innlegg per dag</li>
+                    <li onclick="toggleCheck(this)">Oppdater profil når du lærer noe nytt</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tab 5: Bli synlig -->
+        <div id="tab5" class="tab-content">
+            <div class="motivational">
+                "Gjør deg synlig på riktig måte - profesjonelt og genuint."
+            </div>
+
+            <div class="section card">
+                <h2>1. Engasjer med Bryn Aarflot sine innlegg</h2>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Lik og kommenter gjennomtenkt når de poster</li>
+                    <li onclick="toggleCheck(this)">Vis at du følger med på hva de gjør</li>
+                    <li onclick="toggleCheck(this)">Vær genuint interessert, ikke desperat</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>2. Delta på arrangementer de holder/deltar på</h2>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Sjekk om de holder seminarer</li>
+                    <li onclick="toggleCheck(this)">Gå på IP-konferanser de er på</li>
+                    <li onclick="toggleCheck(this)">Post om arrangementet etterpå (tag dem)</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>3. Når tiden er moden - send en melding</h2>
+                <p>Etter 3-6 måneder med god aktivitet:</p>
+
+                <div class="example-box">
+                    <pre>Hei [navn],
+
+Jeg har fulgt ditt arbeid innen [spesifikt område] med stor 
+interesse, særlig [spesifikt prosjekt/artikkel de delte].
+
+Som nyutdannet jurist med sterkt ønske om å spesialisere meg 
+innen immaterialrett, lurer jeg på om du har 15 minutter til 
+en uformell kaffe for å dele råd om veien inn i IP-bransjen?
+
+Jeg setter stor pris på innsikten din!
+
+Beste hilsen,
+[Ditt navn]</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 6: Content-kalender -->
+        <div id="tab6" class="tab-content">
+            <div class="motivational">
+                "Konsistens er nøkkelen! Følg planen, se resultatene."
+            </div>
+
+            <div class="section card">
+                <h2>3 måneders content-plan</h2>
+
+                <h3>Måned 1: Etablering</h3>
+                <div class="calendar grid-4">
+                    <div class="week-card">
+                        <h4>Uke 1</h4>
+                        <p>Optimaliser profil</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 2</h4>
+                        <p>Første post (del IP-nyhet)</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 3</h4>
+                        <p>Del læring fra bok/artikkel</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 4</h4>
+                        <p>Refleksjon om IP-tema</p>
+                    </div>
+                </div>
+
+                <h3>Måned 2: Konsistens</h3>
+                <div class="calendar grid-4">
+                    <div class="week-card">
+                        <h4>Uke 1</h4>
+                        <p>IP-nyhet + kommentar</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 2</h4>
+                        <p>"Jeg lærte dette"-post</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 3</h4>
+                        <p>Tankeledelse-post</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 4</h4>
+                        <p>Arrangement/networking-post</p>
+                    </div>
+                </div>
+
+                <h3>Måned 3: Dypere engasjement</h3>
+                <div class="calendar grid-4">
+                    <div class="week-card">
+                        <h4>Uke 1</h4>
+                        <p>Publiser lengre artikkel</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 2</h4>
+                        <p>Del nyheter + tag relevante</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 3</h4>
+                        <p>Stille spørsmål til nettverket</p>
+                    </div>
+                    <div class="week-card">
+                        <h4>Uke 4</h4>
+                        <p>Karriere-update post</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 7: Målinger -->
+        <div id="tab7" class="tab-content">
+            <div class="motivational">
+                "Mål fremgangen din og juster kursen underveis."
+            </div>
+
+            <div class="section card">
+                <h2>Hva skal du måle?</h2>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)">Profilvisninger (øker de?)</li>
+                    <li onclick="toggleCheck(this)">Engasjement på innlegg (likes, kommentarer)</li>
+                    <li onclick="toggleCheck(this)">Nye forbindelser i IP-bransjen</li>
+                    <li onclick="toggleCheck(this)">Hvem ser profilen din (er Bryn Aarflot-ansatte der?)</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>Juster etter:</h2>
+                <ul class="feature-list">
+                    <li>Hva får mest engasjement?</li>
+                    <li>Hvilke tema resonerer?</li>
+                    <li>Når er beste tid å poste?</li>
+                </ul>
+            </div>
+
+            <div class="section card">
+                <h2>Viktige prinsipper</h2>
+                <ol class="ordered-list">
+                    <li><strong>Autentisitet:</strong> Ikke later som du er ekspert - vær nysgjerrig lærende</li>
+                    <li><strong>Konsistens:</strong> Bedre med én god post per uke enn fem dårlige</li>
+                    <li><strong>Verdi:</strong> Bidra til diskusjoner, ikke bare self-promotion</li>
+                    <li><strong>Tålmodighet:</strong> Dette tar tid - tenk 6-12 måneder</li>
+                    <li><strong>Genuinitet:</strong> Vær oppriktig interessert i feltet, ikke bare jobben</li>
+                </ol>
+            </div>
+
+            <div class="section card">
+                <h2>Dos and Don'ts</h2>
+                <div class="dos-donts grid-2">
+                    <div class="do-box">
+                        <h4><i class="fas fa-check-circle"></i> GJØR:</h4>
+                        <ul>
+                            <li>Følg IP-nyheter (Managing IP, Patently-O, norske kilder)</li>
+                            <li>Kommenter gjennomtenkt på andres innlegg</li>
+                            <li>Del hva du lærer</li>
+                            <li>Vis personlighet</li>
+                        </ul>
+                    </div>
+
+                    <div class="dont-box">
+                        <h4><i class="fas fa-times-circle"></i> IKKE GJØR:</h4>
+                        <ul>
+                            <li>Spam-like alt fra Bryn Aarflot</li>
+                            <li>Poster bare CV-oppdateringer</li>
+                            <li>Kopier andres innhold uten credit</li>
+                            <li>Vær negativ eller kritisk uten konstruktivitet</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <footer>
         <div class="container footer-content">
             <div class="footer-col">
-                <a href="#" class="logo footer-logo">
-                    <span class="logo-symbol">⚖</span>
-                    <span class="logo-text">Advokatfirmaet</span>
-                </a>
-                <p>&copy; 2024 Advokatfirmaet AS. Alle rettigheter forbeholdt.</p>
-            </div>
-            <div class="footer-col">
-                <ul class="footer-links">
-                    <li><a href="#">Personvernerklæring</a></li>
-                    <li><a href="#">Vilkår</a></li>
-                    <li><a href="#">Cookies</a></li>
-                </ul>
+                <h3>Frida, dette klarer du! 🎯</h3>
+                <p>Husk: Konsistens, autentisitet og genuint engasjement er nøkkelen til suksess.</p>
+                <p>Lykke til med reisen mot Bryn Aarflot!</p>
+                <button class="btn btn-primary" onclick="window.print()">📄 Skriv ut planen</button>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>

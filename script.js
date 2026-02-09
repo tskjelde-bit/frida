@@ -1,99 +1,88 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Header Scroll Effect
-    const header = document.getElementById('main-header');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+    // Tab Functionality
+    window.openTab = function (evt, tabName) {
+        // Hide all tab contents
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
         }
-    });
 
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('mobile-menu-toggle');
-    const nav = document.getElementById('main-nav');
+        // Remove active class from all buttons
+        const tabButtons = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
 
-    menuToggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-        // Simple animation (can be enhanced)
-        const spans = menuToggle.querySelectorAll('span');
-        spans[0].style.transform = nav.classList.contains('active') ? 'rotate(45deg) translate(5px, 5px)' : 'none';
-        spans[1].style.opacity = nav.classList.contains('active') ? '0' : '1';
-        spans[2].style.transform = nav.classList.contains('active') ? 'rotate(-45deg) translate(5px, -5px)' : 'none';
-    });
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).classList.add("active");
 
-    // Animated Counters
-    const counters = document.querySelectorAll('.stat-number');
-    const speed = 200; // The lower the slower
-
-    const animateCounters = () => {
-        counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-
-                // Lower inc to slow and higher to slow
-                const inc = target / speed;
-
-                if (count < target) {
-                    // Add inc to count and output in counter
-                    counter.innerText = Math.ceil(count + inc);
-                    // Call function every ms
-                    setTimeout(updateCount, 20);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-
-            updateCount();
-        });
+        // Handle event currentTarget if available, otherwise find button by index logic or similar
+        if (evt && evt.currentTarget) {
+            evt.currentTarget.classList.add("active");
+        } else {
+            // Fallback if triggered manually
+            // This assumes simple correlation, might need adjustment if complex
+        }
     }
 
-    // Intersection Observer for Animations
-    const observerOptions = {
-        threshold: 0.2
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (entry.target.classList.contains('stat-number')) {
-                    animateCounters();
-                    observer.unobserve(entry.target); // Only animate once
-                } else {
-                    entry.target.classList.add('in-view'); // Generic class for CSS animations
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Observe stats section
-    const statsSection = document.querySelector('#stats');
-    if (statsSection) {
-        observer.observe(statsSection);
+    // Checklist Logic
+    window.toggleCheck = function (element) {
+        element.classList.toggle("checked");
+        updateProgress();
+        saveProgress();
     }
 
-    // Smooth Scroll for Anchors (Standard browser behavior is usually fine, but this ensures it)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+    // Progress Bar Logic
+    function updateProgress() {
+        const checklistItems = document.querySelectorAll(".checklist li");
+        const checkedItems = document.querySelectorAll(".checklist li.checked");
 
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+        const total = checklistItems.length;
+        const checked = checkedItems.length;
 
-                // Close mobile menu if open
-                if (nav.classList.contains('active')) {
-                    nav.classList.remove('active');
-                }
+        const progress = total > 0 ? (checked / total) * 100 : 0;
+
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+
+        if (progressBar && progressText) {
+            progressBar.style.width = progress + "%";
+            progressText.textContent = Math.round(progress) + "% fullført";
+        }
+    }
+
+    // Local Storage Persistence
+    function saveProgress() {
+        const checkedIndices = [];
+        const checklistItems = document.querySelectorAll(".checklist li");
+
+        checklistItems.forEach((item, index) => {
+            if (item.classList.contains('checked')) {
+                checkedIndices.push(index);
             }
         });
-    });
+
+        localStorage.setItem('fridaLinkedInProgress', JSON.stringify(checkedIndices));
+    }
+
+    function loadProgress() {
+        const savedProgress = localStorage.getItem('fridaLinkedInProgress');
+        if (savedProgress) {
+            const checkedIndices = JSON.parse(savedProgress);
+            const checklistItems = document.querySelectorAll(".checklist li");
+
+            checkedIndices.forEach(index => {
+                if (checklistItems[index]) {
+                    checklistItems[index].classList.add('checked');
+                }
+            });
+
+            updateProgress();
+        }
+    }
+
+    // Initialize
+    loadProgress();
 
 });

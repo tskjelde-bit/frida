@@ -1,642 +1,221 @@
 <!DOCTYPE html>
 <html lang="no">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frida til Bryn Aarflot | Veien til Målet</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkedIn Strategi | Premium Roadmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
-        rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        :root {
-            /* Premium Palette */
-            --navy: #0A192F;
-            --navy-light: #172a45;
-            --gold: #C5A059;
-            --gold-light: #E6D5B8;
-            --white: #FFFFFF;
-            --off-white: #F9F9F9;
-            --grey: #8892b0;
-            --asphalt: #2D3436;
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-bg" aria-hidden="true">
+      <div class="app-bg__orb app-bg__orb--one"></div>
+      <div class="app-bg__orb app-bg__orb--two"></div>
+      <div class="app-bg__grid"></div>
+    </div>
 
-            /* Status Colors */
-            --success: #64ffda;
-            --error: #ff6b6b;
+    <header class="hero section-reveal" id="top">
+      <nav class="hero__nav" aria-label="Hovednavigasjon">
+        <span class="brand">LinkedIn Strategy Lab</span>
+        <a class="btn btn--ghost" href="#roadmap">Se roadmap</a>
+      </nav>
 
-            /* Dimensions */
-            --road-width: 60px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--off-white);
-            color: var(--navy);
-            overflow-x: hidden;
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Cinzel', serif;
-        }
-
-        p,
-        li {
-            line-height: 1.6;
-            color: #444;
-        }
-
-        /* HEADER */
-        header {
-            background-color: var(--navy);
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 1rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--gold);
-        }
-
-        header p.subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            font-style: italic;
-            color: var(--gold-light);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .scroll-down {
-            margin-top: 2rem;
-            font-weight: 500;
-            color: var(--grey);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-10px);
-            }
-
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        /* ROADMAP CONTAINER */
-        .roadmap {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 1rem;
-            overflow: hidden;
-        }
-
-        /* THE ROAD (Central Line) */
-        .roadmap::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: var(--road-width);
-            transform: translateX(-50%);
-            background-color: var(--asphalt);
-            border-radius: 30px;
-            z-index: 0;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Yellow dashed line */
-        .roadmap::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 4px;
-            transform: translateX(-50%);
-            background-image: linear-gradient(to bottom, var(--gold) 50%, transparent 50%);
-            background-size: 100% 40px;
-            z-index: 1;
-        }
-
-        /* MILESTONE OBJECT (The Step) */
-        .milestone {
-            position: relative;
-            width: 100%;
-            min-height: 400px;
-            /* Space between steps */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
-
-        .milestone.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* The Content Card */
-        .card {
-            width: 42%;
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Alternating Logic */
-        .milestone:nth-child(odd) {
-            justify-content: flex-start;
-        }
-
-        .milestone:nth-child(even) {
-            justify-content: flex-end;
-        }
-
-        .milestone:nth-child(odd) .card {
-            margin-left: 4%;
-            text-align: right;
-        }
-
-        .milestone:nth-child(even) .card {
-            margin-right: 4%;
-            text-align: left;
-        }
-
-        /* The Connector Node on the Road */
-        .node {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: var(--navy);
-            border: 4px solid var(--gold);
-            border-radius: 50%;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--gold);
-            font-size: 1.5rem;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            box-shadow: 0 0 20px rgba(10, 25, 47, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .milestone:hover .node {
-            transform: translate(-50%, -50%) scale(1.1);
-            background: var(--gold);
-            color: var(--navy);
-        }
-
-        /* Connector Line */
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 6.5%;
-            /* Reach to road center */
-            height: 4px;
-            background: var(--navy-light);
-            z-index: -1;
-        }
-
-        .milestone:nth-child(odd) .card::after {
-            right: -6.5%;
-            left: auto;
-        }
-
-        .milestone:nth-child(even) .card::after {
-            left: -6.5%;
-            right: auto;
-        }
-
-        /* Card Content Styling */
-        .card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--navy);
-        }
-
-        .card h3 {
-            font-size: 1rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .checklist li {
-            list-style: none;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            /* for odd cards */
-            gap: 10px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .milestone:nth-child(even) .checklist li {
-            justify-content: flex-start;
-        }
-
-        .checklist li:hover {
-            color: var(--gold);
-        }
-
-        .checklist li.checked {
-            text-decoration: line-through;
-            color: #aaa;
-        }
-
-        .checklist li i {
-            color: var(--gold);
-            font-size: 1.1rem;
-        }
-
-        .checklist li.checked i {
-            color: var(--success);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-
-            .roadmap::before,
-            .roadmap::after {
-                left: 30px;
-                /* Move road to left */
-            }
-
-            .milestone {
-                justify-content: flex-end !important;
-                /* Always right side */
-                margin-bottom: 3rem;
-            }
-
-            .card {
-                width: 80% !important;
-                margin-right: 0 !important;
-                margin-left: 60px !important;
-                /* Clear the road */
-                text-align: left !important;
-            }
-
-            .node {
-                left: 30px;
-                /* Align node to new road position */
-            }
-
-            .card::after {
-                left: -20px !important;
-                width: 20px !important;
-            }
-
-            .checklist li {
-                justify-content: flex-start !important;
-            }
-        }
-
-        /* Additional sections styling */
-        .example-box {
-            background: #f0f0f0;
-            padding: 1rem;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            margin-top: 1rem;
-            border-left: 3px solid var(--gold);
-            text-align: left;
-        }
-
-        .footer {
-            background: var(--navy);
-            color: white;
-            text-align: center;
-            padding: 4rem 1rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Progress Floating Widget */
-        .progress-widget {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--white);
-            padding: 1rem;
-            border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            z-index: 100;
-            border: 1px solid var(--gold);
-            animation: slideIn 1s ease-out;
-        }
-
-        .progress-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: conic-gradient(var(--gold) 0%, var(--off-white) 0%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .progress-inner {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <header>
-        <h1>Frida til Bryn Aarflot</h1>
-        <p class="subtitle">En strategisk reise mot drømmejobben</p>
-        <div class="scroll-down">
-            Start Reisen <br> <i class="fas fa-chevron-down"></i>
+      <div class="hero__content">
+        <p class="eyebrow">Personlig merkevarebygging</p>
+        <h1>Frida til Bryn Aarflot fast AF</h1>
+        <p class="hero__lead">
+          En interaktiv fremdriftsplan som hjelper deg fra profil-optimalisering til målbare resultater.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#roadmap">Start reisen</a>
+          <button class="btn btn--secondary" id="expandAll" type="button">Åpne alle steg</button>
         </div>
+      </div>
+      <div class="hero__scroll" aria-hidden="true">Scroll for roadmap ↓</div>
     </header>
 
-    <div class="roadmap">
-
-        <!-- STEP 1: Profil -->
-        <div class="milestone">
-            <div class="node">01</div>
-            <div class="card">
-                <h3>Steg 1: Fundamentet</h3>
-                <h2>Profil-Optimalisering</h2>
-                <p>Første inntrykk er alt. Gjør profilen din uimotståelig for rekrutterere.</p>
-                <br>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Ny Headline: "Jurist med lidenskap for
-                        IP..."</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Oppdater "Om meg" med din story</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Vinkle erfaring mot immaterialrett</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Last opp profesjonelt bilde</li>
-                </ul>
-                <div class="example-box">
-                    "Jeg brenner for skjæringspunktet mellom jus, innovasjon og kreativitet..."
-                </div>
-            </div>
+    <main>
+      <section class="roadmap section-reveal" id="roadmap" aria-labelledby="roadmap-title">
+        <div class="section-head">
+          <p class="eyebrow">Roadmap</p>
+          <h2 id="roadmap-title">7 steg mot sterk LinkedIn-posisjonering</h2>
+          <p>
+            Klikk på et steg for detaljer. Linjen og nodene oppdateres dynamisk når du scroller.
+          </p>
         </div>
 
-        <!-- STEP 2: Content -->
-        <div class="milestone">
-            <div class="node">02</div>
-            <div class="card">
-                <h3>Steg 2: Stemme</h3>
-                <h2>Content-Strategi</h2>
-                <p>Vis din kompetanse gjennom det du deler. Content er Konge.</p>
-                <br>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Post 1: Del en IP-nyhet</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Post 2: Bok/Artikkel refleksjon</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Post 3: Juridisk 'Hot take'</li>
-                </ul>
-                <div class="example-box">
-                    #immaterialrett #varemerkerett #juridisk
-                </div>
-            </div>
+        <div class="roadmap__track" aria-hidden="true">
+          <div class="roadmap__progress" id="roadProgress"></div>
         </div>
 
-        <!-- STEP 3: Nettverk -->
-        <div class="milestone">
-            <div class="node">03</div>
-            <div class="card">
-                <h3>Steg 3: Allianser</h3>
-                <h2>Nettverksbygging</h2>
-                <p>Koble deg på de riktige menneskene hos Bryn Aarflot og i bransjen.</p>
-                <br>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Følg Bryn Aarflot (Firmaside)</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Følg 10 partnere/advokater</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Meld deg inn i NIR og foreninger</li>
-                </ul>
+        <ol class="roadmap__list" id="roadmapList">
+          <li class="roadmap-node" data-step="1">
+            <button class="roadmap-node__trigger" type="button" aria-expanded="false">
+              <span class="roadmap-node__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="M8 10h8M8 14h5"></path></svg>
+              </span>
+              <span class="roadmap-node__meta">
+                <span class="roadmap-node__kicker">Steg 1</span>
+                <span class="roadmap-node__title">Profil-optimalisering</span>
+              </span>
+            </button>
+            <div class="roadmap-node__panel" role="region" aria-label="Profil-optimalisering detaljer">
+              <p>Skap et tydelig førsteinntrykk med headline, bilde og en målrettet “Om”-seksjon.</p>
+              <ul>
+                <li>Spiss headline mot immaterialrett.</li>
+                <li>Oppdater banner og profilfoto med premium uttrykk.</li>
+                <li>Omskriv “Om meg” med tydelig verdiforslag: jus + innovasjon + kommersiell forståelse.</li>
+                <li>Vinkle erfaring og prosjekter mot IP, varemerke og kontraktsarbeid.</li>
+                <li>Legg til “Featured” med 2–3 relevante arbeider/innlegg.</li>
+              </ul>
             </div>
-        </div>
+          </li>
 
-        <!-- STEP 4: Proaktiv -->
-        <div class="milestone">
-            <div class="node">04</div>
-            <div class="card">
-                <h3>Steg 4: Initiativ</h3>
-                <h2>Proaktive Tiltak</h2>
-                <p>Ikke vent på mulighetene. Skap dem selv.</p>
-                <br>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Skriv en lengre artikkel på LinkedIn
-                    </li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Lag en "Featured" seksjon på profilen
-                    </li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Delta på et IP-webinar</li>
-                </ul>
+          <li class="roadmap-node" data-step="2">
+            <button class="roadmap-node__trigger" type="button" aria-expanded="false">
+              <span class="roadmap-node__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M8 9h8M8 12h8M8 15h5"></path></svg>
+              </span>
+              <span class="roadmap-node__meta">
+                <span class="roadmap-node__kicker">Steg 2</span>
+                <span class="roadmap-node__title">Content-strategi</span>
+              </span>
+            </button>
+            <div class="roadmap-node__panel" role="region" aria-label="Content-strategi detaljer">
+              <p>Publiser innsiktsdrevet innhold som viser faglig dybde og relevans.</p>
+              <ul>
+                <li>Lag en 3-post serie med nyheter, refleksjon og POV.</li>
+                <li>Bruk konsekvente hashtags og CTA for samtale.</li>
+                <li>Fordel innhold: 60% innsikt, 30% erfaring/case, 10% personlig historie.</li>
+                <li>Definer fast tone of voice: tydelig, analytisk, lett forståelig.</li>
+                <li>Bygg “content bank” med 20 temaer du kan bruke ved behov.</li>
+              </ul>
             </div>
-        </div>
+          </li>
 
-        <!-- STEP 5: Synlighet -->
-        <div class="milestone">
-            <div class="node">05</div>
-            <div class="card">
-                <h3>Steg 5: Synlighet</h3>
-                <h2>Bli Sett</h2>
-                <p>Engasjer deg i feeden. Vær en synlig stemme.</p>
-                <br>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Kommenter på Bryn Aarflot sine posts
-                    </li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Send kaffe-invitasjon til en mentor
-                    </li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Gratuler noen med ny jobb</li>
-                </ul>
+          <li class="roadmap-node" data-step="3">
+            <button class="roadmap-node__trigger" type="button" aria-expanded="false">
+              <span class="roadmap-node__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zM8 12a2.5 2.5 0 1 0-2.5-2.5A2.5 2.5 0 0 0 8 12z"></path><path d="M3 18a5 5 0 0 1 10 0M11 18a5 5 0 0 1 10 0"></path></svg>
+              </span>
+              <span class="roadmap-node__meta">
+                <span class="roadmap-node__kicker">Steg 3</span>
+                <span class="roadmap-node__title">Nettverksbygging</span>
+              </span>
+            </button>
+            <div class="roadmap-node__panel" role="region" aria-label="Nettverksbygging detaljer">
+              <p>Utvid nettverket med strategiske forbindelser i målbransjen.</p>
+              <ul>
+                <li>Følg sentrale profiler og aktører.</li>
+                <li>Send personlige connect-forespørsler med klar kontekst.</li>
+                <li>Følg Bryn Aarflot-siden og sett varsler på nye innlegg.</li>
+                <li>Lag ukentlig mål: 5 relevante nye forbindelser.</li>
+                <li>Delta i kommentarer hos partnere/advokater med faglig bidrag.</li>
+              </ul>
             </div>
-        </div>
+          </li>
 
-        <!-- STEP 6: Kalender -->
-        <div class="milestone">
-            <div class="node">06</div>
-            <div class="card">
-                <h3>Steg 6: Struktur</h3>
-                <h2>Content-Kalender</h2>
-                <p>Hold kursen med en fast plan. Konsistens vinner.</p>
-                <br>
-                <p><strong>Måned 1:</strong> Etablering & Profil</p>
-                <p><strong>Måned 2:</strong> Synlighet & Kommentarer</p>
-                <p><strong>Måned 3:</strong> Egne poster & Artikler</p>
+          <li class="roadmap-node" data-step="4">
+            <button class="roadmap-node__trigger" type="button" aria-expanded="false">
+              <span class="roadmap-node__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7L21 9.6l-4.5 4.4L17.6 21 12 18l-5.6 3 1.1-7-4.5-4.4 6.2-.9z"></path></svg>
+              </span>
+              <span class="roadmap-node__meta">
+                <span class="roadmap-node__kicker">Steg 4</span>
+                <span class="roadmap-node__title">Proaktive tiltak</span>
+              </span>
+            </button>
+            <div class="roadmap-node__panel" role="region" aria-label="Proaktive tiltak detaljer">
+              <p>Vis initiativ ved å publisere long-form og delta i faglige arenaer.</p>
+              <ul>
+                <li>Skriv en artikkel med praktiske eksempler.</li>
+                <li>Delta i webinarer og følg opp med refleksjonspost.</li>
+                <li>Foreslå 1:1 kaffemøte med mentor/profil i bransjen hver måned.</li>
+                <li>Publiser “lessons learned” etter arrangementer eller kurs.</li>
+                <li>Del korte analyser av ferske rettsavgjørelser innen IP.</li>
+              </ul>
             </div>
-        </div>
+          </li>
 
-        <!-- STEP 7: Målinger -->
-        <div class="milestone">
-            <div class="node"><i class="fas fa-flag-checkered"></i></div>
-            <div class="card">
-                <h3>Steg 7: Målstreken</h3>
-                <h2>Resultater & Måling</h2>
-                <p>Se fremgangen din og feire seirene.</p>
-                <br>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Sjekk: Økte profilvisninger?</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Sjekk: Nye IP-kontakter?</li>
-                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Mål: Intervju hos Bryn Aarflot!</li>
-                </ul>
+          <li class="roadmap-node" data-step="5">
+            <button class="roadmap-node__trigger" type="button" aria-expanded="false">
+              <span class="roadmap-node__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"></path><circle cx="12" cy="12" r="4"></circle></svg>
+              </span>
+              <span class="roadmap-node__meta">
+                <span class="roadmap-node__kicker">Steg 5</span>
+                <span class="roadmap-node__title">Bli synlig</span>
+              </span>
+            </button>
+            <div class="roadmap-node__panel" role="region" aria-label="Bli synlig detaljer">
+              <p>Øk synlighet med jevnlige kommentarer og strategisk dialog i feeden.</p>
+              <ul>
+                <li>Kommenter med faglig verdi på relevante innlegg.</li>
+                <li>Følg opp med DM når det er naturlig.</li>
+                <li>Sett mål om 3–5 kvalitetskommentarer hver uke.</li>
+                <li>Marker milepæler hos andre for å bygge relasjoner over tid.</li>
+                <li>Test ulike poståpninger og mål hva som skaper mest respons.</li>
+              </ul>
             </div>
-        </div>
+          </li>
 
+          <li class="roadmap-node" data-step="6">
+            <button class="roadmap-node__trigger" type="button" aria-expanded="false">
+              <span class="roadmap-node__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 6h16v14H4z"></path><path d="M8 3v6M16 3v6M4 11h16"></path></svg>
+              </span>
+              <span class="roadmap-node__meta">
+                <span class="roadmap-node__kicker">Steg 6</span>
+                <span class="roadmap-node__title">Content-kalender</span>
+              </span>
+            </button>
+            <div class="roadmap-node__panel" role="region" aria-label="Content-kalender detaljer">
+              <p>Etabler rytme med en enkel kalender for tema, format og publisering.</p>
+              <ul>
+                <li>Definer ukentlige publiseringsvinduer.</li>
+                <li>Planlegg temaer fire uker frem i tid.</li>
+                <li>Måned 1: profiloptimalisering + grunnleggende synlighet.</li>
+                <li>Måned 2: kommentering + kortformat innsiktsposter.</li>
+                <li>Måned 3: long-form artikkel + tydelig ekspertposisjonering.</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="roadmap-node" data-step="7">
+            <button class="roadmap-node__trigger" type="button" aria-expanded="false">
+              <span class="roadmap-node__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 20h16M7 16V9m5 7V5m5 11v-6"></path></svg>
+              </span>
+              <span class="roadmap-node__meta">
+                <span class="roadmap-node__kicker">Steg 7</span>
+                <span class="roadmap-node__title">Måling</span>
+              </span>
+            </button>
+            <div class="roadmap-node__panel" role="region" aria-label="Måling detaljer">
+              <p>Evaluer effekten med KPI-er og juster strategi for neste iterasjon.</p>
+              <ul>
+                <li>Følg profilvisninger, responsrate og nye relevante kontakter.</li>
+                <li>Lag månedlig retrospekt med forbedringstiltak.</li>
+                <li>Spor hvilke temaer som gir flest kvalifiserte dialoger.</li>
+                <li>Vurder fremgang mot hovedmål: intervju/samtale med målbedrift.</li>
+                <li>Feir delmål og oppdater planen kvartalsvis.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <div class="progress-pill" aria-live="polite">
+      <span class="progress-pill__label">Roadmap-fremdrift</span>
+      <span class="progress-pill__value" id="progressLabel">0%</span>
     </div>
 
-    <!-- Progress Widget -->
-    <div class="progress-widget">
-        <div class="progress-circle" id="progressCircle">
-            <div class="progress-inner" id="progressText">0%</div>
-        </div>
-        <div>
-            <div style="font-size: 0.8rem; color: #888;">Din Fremdrift</div>
-            <div style="font-weight: 600; color: var(--navy);">Keep going, Frida!</div>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <h2>"Ditt nettverk er din nettoverdi"</h2>
-        <p>Lykke til på reisen, Frida. Dette klarer du!</p>
-        <br>
-        <button onclick="window.print()"
-            style="background:transparent; border:1px solid #C5A059; color:#C5A059; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
-            Skriv ut Roadmap
-        </button>
-    </footer>
-
-    <script>
-        // Reveal on Scroll
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: "0px"
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.milestone').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Checklist Logic
-        function toggleCheck(li) {
-            li.classList.toggle('checked');
-            const icon = li.querySelector('i');
-            if (li.classList.contains('checked')) {
-                icon.classList.remove('far', 'fa-circle');
-                icon.classList.add('fas', 'fa-check-circle');
-            } else {
-                icon.classList.remove('fas', 'fa-check-circle');
-                icon.classList.add('far', 'fa-circle');
-            }
-            saveProgress();
-            updateProgress();
-        }
-
-        // Progress Logic
-        function updateProgress() {
-            const items = document.querySelectorAll('.checklist li');
-            const checked = document.querySelectorAll('.checklist li.checked');
-            const percent = Math.round((checked.length / items.length) * 100);
-
-            document.getElementById('progressText').innerText = percent + "%";
-            document.getElementById('progressCircle').style.background = `conic-gradient(var(--gold) ${percent}%, var(--off-white) ${percent}%)`;
-        }
-
-        function saveProgress() {
-            const state = [];
-            document.querySelectorAll('.checklist li').forEach((item, index) => {
-                if (item.classList.contains('checked')) state.push(index);
-            });
-            localStorage.setItem('roadmapProgress', JSON.stringify(state));
-        }
-
-        function loadProgress() {
-            const saved = JSON.parse(localStorage.getItem('roadmapProgress'));
-            if (saved) {
-                const items = document.querySelectorAll('.checklist li');
-                saved.forEach(idx => {
-                    if (items[idx]) {
-                        items[idx].classList.add('checked');
-                        items[idx].querySelector('i').classList.remove('far', 'fa-circle');
-                        items[idx].querySelector('i').classList.add('fas', 'fa-check-circle');
-                    }
-                });
-                updateProgress();
-            }
-        }
-
-        window.onload = loadProgress;
-
-    </script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -4,51 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frida til Bryn Aarflot | LinkedIn Strategi</title>
+    <title>Frida til Bryn Aarflot | Veien til Målet</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
-            /* Premium Light Theme */
-            --primary: #0A192F;
-            /* Deep Navy */
-            --primary-light: #1A2F4B;
-            /* Lighter Navy */
-            --secondary: #C5A059;
-            /* Muted Gold */
-            --accent: #E6D5B8;
-            /* Light Gold/Beige */
-            --text-dark: #1A1A1A;
-            /* Dark Grey/Black */
-            --text-medium: #4A4A4A;
-            /* Medium Grey */
-            --text-light: #7A7A7A;
-            /* Light Grey */
-            --bg-main: #F9F9F9;
-            /* Off-white Background */
-            --bg-white: #FFFFFF;
-            /* Pure White Card Background */
-            --border: #E0E0E0;
-            /* Subtle Border */
-            --success: #2D6A4F;
-            /* Deep Green */
-            --warning: #B7791F;
-            /* Gold/Orange */
+            /* Premium Palette */
+            --navy: #0A192F;
+            --navy-light: #172a45;
+            --gold: #C5A059;
+            --gold-light: #E6D5B8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --grey: #8892b0;
+            --asphalt: #2D3436;
 
-            /* Shadows */
-            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+            /* Status Colors */
+            --success: #64ffda;
+            --error: #ff6b6b;
+
+            /* Dimensions */
+            --road-width: 60px;
         }
 
-        /* Global Reset */
         * {
             margin: 0;
             padding: 0;
@@ -57,480 +42,369 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            background-color: var(--off-white);
+            color: var(--navy);
+            overflow-x: hidden;
         }
 
         h1,
         h2,
-        h3,
-        h4 {
+        h3 {
             font-family: 'Cinzel', serif;
-            color: var(--primary);
-            margin-bottom: 1rem;
         }
 
-        p {
-            margin-bottom: 1rem;
-            color: var(--text-medium);
+        p,
+        li {
+            line-height: 1.6;
+            color: #444;
         }
 
-        .container {
+        /* HEADER */
+        header {
+            background-color: var(--navy);
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        header p.subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--gold-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .scroll-down {
+            margin-top: 2rem;
+            font-weight: 500;
+            color: var(--grey);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* ROADMAP CONTAINER */
+        .roadmap {
+            position: relative;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        .header {
-            background-color: var(--primary);
-            color: white;
-            padding: 4rem 0;
-            position: relative;
+            padding: 4rem 1rem;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
         }
 
-        .header::before {
+        /* THE ROAD (Central Line) */
+        .roadmap::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
             bottom: 0;
-            background: radial-gradient(circle at top right, rgba(197, 160, 89, 0.2), transparent 40%);
+            left: 50%;
+            width: var(--road-width);
+            transform: translateX(-50%);
+            background-color: var(--asphalt);
+            border-radius: 30px;
+            z-index: 0;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
-        .header h1 {
-            color: white;
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-
-        .header p.subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            color: var(--secondary);
-            font-style: italic;
-            margin-bottom: 2rem;
-        }
-
-        /* Progress Bar */
-        .progress-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            max-width: 500px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--accent);
-        }
-
-        .progress-track {
-            background: rgba(255, 255, 255, 0.2);
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background-color: var(--secondary);
-            height: 100%;
-            width: 0%;
-            transition: width 0.6s ease;
-            box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
-        }
-
-        /* Navigation Tabs */
-        .nav-container {
-            background: white;
-            position: sticky;
+        /* Yellow dashed line */
+        .roadmap::after {
+            content: '';
+            position: absolute;
             top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
-            border-bottom: 1px solid var(--border);
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            transform: translateX(-50%);
+            background-image: linear-gradient(to bottom, var(--gold) 50%, transparent 50%);
+            background-size: 100% 40px;
+            z-index: 1;
         }
 
-        .nav-tabs {
+        /* MILESTONE OBJECT (The Step) */
+        .milestone {
+            position: relative;
+            width: 100%;
+            min-height: 400px;
+            /* Space between steps */
             display: flex;
-            overflow-x: auto;
-            gap: 1rem;
-            padding: 1rem 0;
-            scrollbar-width: none;
-            /* Firefox */
-        }
-
-        .nav-tabs::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Chrome/Safari */
-
-        .tab-btn {
-            background: transparent;
-            border: none;
-            padding: 0.75rem 1.25rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            color: var(--text-medium);
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tab-btn:hover {
-            color: var(--primary);
-            background-color: rgba(10, 25, 47, 0.03);
-            border-radius: 4px 4px 0 0;
-        }
-
-        .tab-btn.active {
-            color: var(--primary);
-            border-bottom-color: var(--secondary);
-            font-weight: 600;
-        }
-
-        .tab-btn i {
-            font-size: 0.9em;
-        }
-
-        /* Main Content */
-        .content-area {
-            padding: 3rem 0;
-            min-height: 60vh;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Cards & Sections */
-        .section {
-            background: var(--bg-white);
-            border-radius: 8px;
-            padding: 2.5rem;
             margin-bottom: 2rem;
-            box-shadow: var(--shadow-sm);
-            border-left: 4px solid var(--primary);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
         }
 
-        .section:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+        .milestone.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .section h2 {
-            font-size: 1.8rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
+        /* The Content Card */
+        .card {
+            width: 42%;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
         }
 
-        /* Motivational Quote */
-        .motivational {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            padding: 2.5rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 3rem;
-            font-family: 'Playfair Display', serif;
+        /* Alternating Logic */
+        .milestone:nth-child(odd) {
+            justify-content: flex-start;
+        }
+
+        .milestone:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .milestone:nth-child(odd) .card {
+            margin-left: 4%;
+            text-align: right;
+        }
+
+        .milestone:nth-child(even) .card {
+            margin-right: 4%;
+            text-align: left;
+        }
+
+        /* The Connector Node on the Road */
+        .node {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--navy);
+            border: 4px solid var(--gold);
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gold);
             font-size: 1.5rem;
-            font-style: italic;
-            box-shadow: var(--shadow-md);
-            position: relative;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(10, 25, 47, 0.5);
+            transition: transform 0.3s ease;
         }
 
-        .motivational::before {
-            content: '"';
-            font-size: 5rem;
+        .milestone:hover .node {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        /* Connector Line */
+        .card::after {
+            content: '';
             position: absolute;
-            top: -1rem;
-            left: 1rem;
-            opacity: 0.1;
-            font-family: sans-serif;
+            top: 50%;
+            width: 6.5%;
+            /* Reach to road center */
+            height: 4px;
+            background: var(--navy-light);
+            z-index: -1;
         }
 
-        /* Example Box */
-        .example-box {
-            background-color: #F8F9FA;
-            border: 1px solid #E9ECEF;
-            border-radius: 6px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            position: relative;
+        .milestone:nth-child(odd) .card::after {
+            right: -6.5%;
+            left: auto;
         }
 
-        .example-box::before {
-            content: "EKSEMPEL";
-            position: absolute;
-            top: -10px;
-            left: 1rem;
-            background-color: var(--secondary);
-            color: white;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
+        .milestone:nth-child(even) .card::after {
+            left: -6.5%;
+            right: auto;
         }
 
-        .example-box pre {
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
-            color: var(--text-dark);
-            font-size: 0.95rem;
+        /* Card Content Styling */
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--navy);
         }
 
-        /* Checklists */
-        .checklist {
-            list-style: none;
+        .card h3 {
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .checklist li {
-            padding: 1rem 1.5rem;
-            margin-bottom: 0.75rem;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            list-style: none;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            position: relative;
-            padding-left: 3.5rem;
+            justify-content: flex-end;
+            /* for odd cards */
+            gap: 10px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .milestone:nth-child(even) .checklist li {
+            justify-content: flex-start;
         }
 
         .checklist li:hover {
-            border-color: var(--secondary);
-            background-color: #FDFBF7;
-            /* Very light gold tint */
-        }
-
-        .checklist li::before {
-            content: '';
-            position: absolute;
-            left: 1.2rem;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--secondary);
-            border-radius: 4px;
-            transition: background 0.2s;
+            color: var(--gold);
         }
 
         .checklist li.checked {
-            background-color: #F0FFF4;
-            border-color: var(--success);
-            color: var(--text-light);
             text-decoration: line-through;
+            color: #aaa;
         }
 
-        .checklist li.checked::before {
-            background-color: var(--success);
-            border-color: var(--success);
-        }
-
-        .checklist li.checked::after {
-            content: '✓';
-            position: absolute;
-            left: 1.4rem;
-            color: white;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        /* Tips Box */
-        .tips-box {
-            background-color: #FFF8E1;
-            /* Light yellow/gold */
-            border-left: 4px solid var(--warning);
-            padding: 1.5rem;
-            border-radius: 0 4px 4px 0;
-            margin-top: 1.5rem;
-        }
-
-        .tips-box h4 {
-            color: var(--warning);
-            margin-bottom: 0.5rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-        }
-
-        .tips-box p {
-            color: #5D4037;
-            margin-bottom: 0;
-        }
-
-        /* Week Cards */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .week-card {
-            background: white;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            transition: transform 0.2s;
-        }
-
-        .week-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .week-card h4 {
-            color: var(--secondary);
+        .checklist li i {
+            color: var(--gold);
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
         }
 
-        /* Dos and Don'ts */
-        .dos-donts {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .do-box,
-        .dont-box {
-            padding: 2rem;
-            border-radius: 8px;
-            height: 100%;
-        }
-
-        .do-box {
-            background-color: #F0FFF4;
-            border-top: 4px solid var(--success);
-        }
-
-        .dont-box {
-            background-color: #FFF5F5;
-            border-top: 4px solid #C62828;
-        }
-
-        .do-box h4 {
+        .checklist li.checked i {
             color: var(--success);
         }
 
-        .dont-box h4 {
-            color: #C62828;
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+
+            .roadmap::before,
+            .roadmap::after {
+                left: 30px;
+                /* Move road to left */
+            }
+
+            .milestone {
+                justify-content: flex-end !important;
+                /* Always right side */
+                margin-bottom: 3rem;
+            }
+
+            .card {
+                width: 80% !important;
+                margin-right: 0 !important;
+                margin-left: 60px !important;
+                /* Clear the road */
+                text-align: left !important;
+            }
+
+            .node {
+                left: 30px;
+                /* Align node to new road position */
+            }
+
+            .card::after {
+                left: -20px !important;
+                width: 20px !important;
+            }
+
+            .checklist li {
+                justify-content: flex-start !important;
+            }
         }
 
-        .do-box ul,
-        .dont-box ul {
-            list-style: none;
+        /* Additional sections styling */
+        .example-box {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            border-left: 3px solid var(--gold);
+            text-align: left;
         }
 
-        .do-box li,
-        .dont-box li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .do-box li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        .dont-box li::before {
-            content: '✕';
-            position: absolute;
-            left: 0;
-            color: #C62828;
-            font-weight: bold;
-        }
-
-        /* Footer */
         .footer {
-            background-color: var(--primary);
+            background: var(--navy);
             color: white;
             text-align: center;
-            padding: 3rem 0;
-            margin-top: 4rem;
+            padding: 4rem 1rem;
+            position: relative;
+            z-index: 10;
         }
 
-        .footer h3 {
-            color: var(--secondary);
+        /* Progress Floating Widget */
+        .progress-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 100;
+            border: 1px solid var(--gold);
+            animation: slideIn 1s ease-out;
         }
 
-        .footer p {
-            color: rgba(255, 255, 255, 0.8);
+        .progress-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: conic-gradient(var(--gold) 0%, var(--off-white) 0%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .btn-print {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: background 0.3s;
+        .progress-inner {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.8rem;
         }
 
-        .btn-print:hover {
-            background-color: #D4AF37;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+        @keyframes slideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
             }
 
-            .dos-donts {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-tabs {
-                padding-bottom: 1rem;
-            }
-
-            .section {
-                padding: 1.5rem;
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
     </style>
@@ -538,468 +412,230 @@
 
 <body>
 
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <h1>Frida til Bryn Aarflot</h1>
-                <p class="subtitle">Din profesjonelle LinkedIn-strategi for en karriere i IP-jus</p>
-
-                <div class="progress-container">
-                    <div class="progress-header">
-                        <span>Fremdrift</span>
-                        <span id="progressText">0% fullført</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" id="progressBar"></div>
-                    </div>
-                </div>
-            </div>
+    <header>
+        <h1>Frida til Bryn Aarflot</h1>
+        <p class="subtitle">En strategisk reise mot drømmejobben</p>
+        <div class="scroll-down">
+            Start Reisen <br> <i class="fas fa-chevron-down"></i>
         </div>
     </header>
 
-    <div class="nav-container">
-        <div class="container">
-            <nav class="nav-tabs">
-                <button class="tab-btn active" onclick="openTab('tab1', this)"><i class="fas fa-clipboard-list"></i>
-                    Profil-optimalisering</button>
-                <button class="tab-btn" onclick="openTab('tab2', this)"><i class="fas fa-pen-fancy"></i>
-                    Content-strategi</button>
-                <button class="tab-btn" onclick="openTab('tab3', this)"><i class="fas fa-handshake"></i>
-                    Nettverksbygging</button>
-                <button class="tab-btn" onclick="openTab('tab4', this)"><i class="fas fa-rocket"></i> Proaktive
-                    tiltak</button>
-                <button class="tab-btn" onclick="openTab('tab5', this)"><i class="fas fa-eye"></i> Bli synlig</button>
-                <button class="tab-btn" onclick="openTab('tab6', this)"><i class="fas fa-calendar-alt"></i>
-                    Content-kalender</button>
-                <button class="tab-btn" onclick="openTab('tab7', this)"><i class="fas fa-chart-line"></i>
-                    Målinger</button>
-            </nav>
+    <div class="roadmap">
+
+        <!-- STEP 1: Profil -->
+        <div class="milestone">
+            <div class="node">01</div>
+            <div class="card">
+                <h3>Steg 1: Fundamentet</h3>
+                <h2>Profil-Optimalisering</h2>
+                <p>Første inntrykk er alt. Gjør profilen din uimotståelig for rekrutterere.</p>
+                <br>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Ny Headline: "Jurist med lidenskap for
+                        IP..."</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Oppdater "Om meg" med din story</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Vinkle erfaring mot immaterialrett</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Last opp profesjonelt bilde</li>
+                </ul>
+                <div class="example-box">
+                    "Jeg brenner for skjæringspunktet mellom jus, innovasjon og kreativitet..."
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: Content -->
+        <div class="milestone">
+            <div class="node">02</div>
+            <div class="card">
+                <h3>Steg 2: Stemme</h3>
+                <h2>Content-Strategi</h2>
+                <p>Vis din kompetanse gjennom det du deler. Content er Konge.</p>
+                <br>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Post 1: Del en IP-nyhet</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Post 2: Bok/Artikkel refleksjon</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Post 3: Juridisk 'Hot take'</li>
+                </ul>
+                <div class="example-box">
+                    #immaterialrett #varemerkerett #juridisk
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: Nettverk -->
+        <div class="milestone">
+            <div class="node">03</div>
+            <div class="card">
+                <h3>Steg 3: Allianser</h3>
+                <h2>Nettverksbygging</h2>
+                <p>Koble deg på de riktige menneskene hos Bryn Aarflot og i bransjen.</p>
+                <br>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Følg Bryn Aarflot (Firmaside)</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Følg 10 partnere/advokater</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Meld deg inn i NIR og foreninger</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- STEP 4: Proaktiv -->
+        <div class="milestone">
+            <div class="node">04</div>
+            <div class="card">
+                <h3>Steg 4: Initiativ</h3>
+                <h2>Proaktive Tiltak</h2>
+                <p>Ikke vent på mulighetene. Skap dem selv.</p>
+                <br>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Skriv en lengre artikkel på LinkedIn
+                    </li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Lag en "Featured" seksjon på profilen
+                    </li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Delta på et IP-webinar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- STEP 5: Synlighet -->
+        <div class="milestone">
+            <div class="node">05</div>
+            <div class="card">
+                <h3>Steg 5: Synlighet</h3>
+                <h2>Bli Sett</h2>
+                <p>Engasjer deg i feeden. Vær en synlig stemme.</p>
+                <br>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Kommenter på Bryn Aarflot sine posts
+                    </li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Send kaffe-invitasjon til en mentor
+                    </li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Gratuler noen med ny jobb</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- STEP 6: Kalender -->
+        <div class="milestone">
+            <div class="node">06</div>
+            <div class="card">
+                <h3>Steg 6: Struktur</h3>
+                <h2>Content-Kalender</h2>
+                <p>Hold kursen med en fast plan. Konsistens vinner.</p>
+                <br>
+                <p><strong>Måned 1:</strong> Etablering & Profil</p>
+                <p><strong>Måned 2:</strong> Synlighet & Kommentarer</p>
+                <p><strong>Måned 3:</strong> Egne poster & Artikler</p>
+            </div>
+        </div>
+
+        <!-- STEP 7: Målinger -->
+        <div class="milestone">
+            <div class="node"><i class="fas fa-flag-checkered"></i></div>
+            <div class="card">
+                <h3>Steg 7: Målstreken</h3>
+                <h2>Resultater & Måling</h2>
+                <p>Se fremgangen din og feire seirene.</p>
+                <br>
+                <ul class="checklist">
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Sjekk: Økte profilvisninger?</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Sjekk: Nye IP-kontakter?</li>
+                    <li onclick="toggleCheck(this)"><i class="far fa-circle"></i>Mål: Intervju hos Bryn Aarflot!</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Progress Widget -->
+    <div class="progress-widget">
+        <div class="progress-circle" id="progressCircle">
+            <div class="progress-inner" id="progressText">0%</div>
+        </div>
+        <div>
+            <div style="font-size: 0.8rem; color: #888;">Din Fremdrift</div>
+            <div style="font-weight: 600; color: var(--navy);">Keep going, Frida!</div>
         </div>
     </div>
 
-    <main class="container content-area">
-
-        <!-- Tab 1: Profil -->
-        <div id="tab1" class="tab-content active">
-            <div class="motivational">
-                "Første inntrykk betyr alt på LinkedIn. La oss gjøre profilen din uimotståelig."
-            </div>
-
-            <div class="section">
-                <h2>1. Overskrift (Headline)</h2>
-                <p>Dette er det første folk ser - gjør det relevant!</p>
-
-                <h4>Eksempler på gode overskrifter:</h4>
-                <div class="example-box">
-                    <pre>Jurist med lidenskap for immaterialrett | Interesse for innovasjon og IP-strategi</pre>
-                </div>
-                <div class="example-box">
-                    <pre>Nyutdannet jurist | Spesialisering i opphavsrett og varemerkerett</pre>
-                </div>
-                <div class="example-box">
-                    <pre>IP-entusiast | Jurist med fokus på teknologi og kreative næringer</pre>
-                </div>
-
-                <div class="tips-box">
-                    <h4>💡 Tips:</h4>
-                    <p>Bryn Aarflot scroller trolig gjennom mange profiler. Vis umiddelbart at du er interessert i IP!
-                    </p>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>2. Om meg-seksjonen (About)</h2>
-                <p>Dette er din "elevator pitch". Struktur:</p>
-                <ul>
-                    <li><strong>Åpning:</strong> Hva driver deg? (1-2 setninger)</li>
-                    <li><strong>Kompetanse:</strong> Hva kan du? (2-3 setninger)</li>
-                    <li><strong>Interesse:</strong> Hvorfor IP? (2-3 setninger)</li>
-                    <li><strong>Fremtid:</strong> Hva søker du? (1-2 setninger)</li>
-                </ul>
-
-                <div class="example-box">
-                    <pre>Jeg brenner for skjæringspunktet mellom jus, innovasjon og kreativitet. 
-Som nyutdannet jurist er jeg fascinert av hvordan immaterialrett beskytter 
-og skaper verdi for både oppstartsbedrifter og etablerte selskaper.
-
-Gjennom studiene har jeg fordypet meg særlig i varemerkerett og 
-opphavsrett, og skrevet masteroppgave om [relevant tema]. Jeg har også 
-erfaring fra [relevant verv/jobb] hvor jeg jobbet med [IP-relatert].
-
-Det som engasjerer meg mest ved IP-feltet er hvordan det driver innovasjon 
-fremover og beskytter kreativitet. Jeg følger særlig utviklingen innen 
-AI og immaterialrett, og ser hvordan dette feltet blir stadig viktigere 
-i en digital økonomi.
-
-Jeg søker nå muligheter til å bygge en karriere innen immaterialrett, 
-gjerne i et miljø som kombinerer faglig tyngde med arbeid for innovative 
-og bærekraftige løsninger.</pre>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>3. Erfaring-seksjonen</h2>
-                <p>Selv om du ikke har IP-erfaring ennå, kan du vinkle det du har:</p>
-
-                <h4>Eksempel - studentjobb hos advokatfirma:</h4>
-                <div class="example-box">
-                    <pre>Advokatfullmektig, [Firma] | Jan 2024 - nå
-• Utarbeidet juridiske vurderinger innen kontraktsrett med fokus på 
-  intellektuelle rettigheter i samarbeidsavtaler
-• Gjennomgikk og kvalitetssikret dokumentasjon for lisensavtaler
-• Analyserte markedsføringskampanjer med hensyn til markedsføringslovgivning</pre>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>4. Ferdigheter (Skills)</h2>
-                <div class="grid-container">
-                    <div>
-                        <h3>Juridiske:</h3>
-                        <ul class="checklist">
-                            <li onclick="toggleCheck(this)">Immaterialrett</li>
-                            <li onclick="toggleCheck(this)">Varemerkerett</li>
-                            <li onclick="toggleCheck(this)">Opphavsrett</li>
-                            <li onclick="toggleCheck(this)">Patentrett</li>
-                            <li onclick="toggleCheck(this)">Kontraktsrett</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Tekniske/andre:</h3>
-                        <ul class="checklist">
-                            <li onclick="toggleCheck(this)">Microsoft Office</li>
-                            <li onclick="toggleCheck(this)">Juridiske databaser</li>
-                            <li onclick="toggleCheck(this)">Engelsk (flytende)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab 2: Content -->
-        <div id="tab2" class="tab-content">
-            <div class="motivational">
-                "Content er kongen på LinkedIn. La oss lage innhold som viser din ekspertise."
-            </div>
-
-            <div class="section">
-                <h2>Hva skal du poste om?</h2>
-                <p><strong>Hovedtemaer (rotér mellom disse):</strong></p>
-                <ul>
-                    <li>IP-nyheter og utviklingstrekk</li>
-                    <li>Refleksjoner om jus og innovasjon</li>
-                    <li>Læring og faglig utvikling</li>
-                    <li>Bærekraft og fremtidsteknologi</li>
-                    <li>Personlig merkevarebygging</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>Ukentlig content-plan</h2>
-                <div class="grid-container">
-                    <div class="week-card">
-                        <h4>Uke 1: IP-nyheter</h4>
-                        <p>Del en relevant IP-nyhet (norsk eller internasjonal) og legg til egen kommentar (3-5
-                            setninger)</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 2: Lærings-post</h4>
-                        <p>Del noe du har lært (bok, artikkel, kurs)</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 3: Tankeledelse</h4>
-                        <p>Del dine tanker om et IP-tema</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 4: Personlig/karriere</h4>
-                        <p>Del milepæler, kurs, networking</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Eksempel-poster</h2>
-                <h3>Uke 1: IP-nyheter</h3>
-                <div class="example-box">
-                    <pre>EU-domstolen avgjorde nylig at [sammendrag av sak]. 
-
-Dette viser hvor komplekst varemerkeretten blir i en digital tidsalder. 
-Særlig interessant er hvordan domstolen balanserer merkevareeieres 
-rettigheter mot forbrukernes interesser.
-
-Hva tenker andre jurister om dette? Ser dere samme utfordringer 
-i norsk rett?
-
-#immaterialrett #varemerkerett #juridisk</pre>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab 3: Nettverk -->
-        <div id="tab3" class="tab-content">
-            <div class="motivational">
-                "Ditt nettverk er din nettoverdi. La oss bygge de riktige forbindelsene."
-            </div>
-
-            <div class="section">
-                <h2>1. Følg og engasjer med Bryn Aarflot-ansatte</h2>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)">Finn ansatte hos Bryn Aarflot (bruk LinkedIn-søk)</li>
-                    <li onclick="toggleCheck(this)">Gå til "Ansatte" på firmaprofilen</li>
-                    <li onclick="toggleCheck(this)">Følg 10-15 av deres advokater/patentrådgivere</li>
-                    <li onclick="toggleCheck(this)">Sett på varsler for deres innlegg</li>
-                    <li onclick="toggleCheck(this)">Kommenter gjennomtenkt på innholdet deres</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>2. Følg relevante organisasjoner</h2>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)">NIR - Norsk forening for industriell rettsbeskyttelse</li>
-                    <li onclick="toggleCheck(this)">Opphavsrettsforeningen</li>
-                    <li onclick="toggleCheck(this)">Norsk Patentforening</li>
-                    <li onclick="toggleCheck(this)">Innovasjon Norge</li>
-                    <li onclick="toggleCheck(this)">Bryn Aarflot (selskapet)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Tab 4: Proaktiv -->
-        <div id="tab4" class="tab-content">
-            <div class="motivational">
-                "Vent ikke på muligheter - skap dem!"
-            </div>
-
-            <div class="section">
-                <h2>1. Publiser artikler på LinkedIn</h2>
-                <p>Skriv 1-2 lengre artikler per år om IP-temaer du brenner for.</p>
-                <h4>Tema-forslag:</h4>
-                <ul>
-                    <li>"5 ting jeg skulle ønske jeg lærte tidligere om immaterialrett"</li>
-                    <li>"Hvordan norske startups kan beskytte sin IP internasjonalt"</li>
-                    <li>"AI og opphavsrett: Utfordringer og muligheter"</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>2. Lag en Featured-seksjon</h2>
-                <p>Pin viktig innhold øverst på profilen:</p>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)">Masteroppgave (hvis IP-relatert)</li>
-                    <li onclick="toggleCheck(this)">Beste artikler du har skrevet</li>
-                    <li onclick="toggleCheck(this)">Presentasjoner du har holdt</li>
-                    <li onclick="toggleCheck(this)">Relevante prosjekter</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Tab 5: Synlig -->
-        <div id="tab5" class="tab-content">
-            <div class="motivational">
-                "Gjør deg synlig på riktig måte - profesjonelt og genuint."
-            </div>
-
-            <div class="section">
-                <h2>1. Engasjer med Bryn Aarflot sine innlegg</h2>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)">Lik og kommenter gjennomtenkt når de poster</li>
-                    <li onclick="toggleCheck(this)">Vis at du følger med på hva de gjør</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>2. Når tiden er moden - send en melding</h2>
-                <div class="example-box">
-                    <pre>Hei [navn],
-
-Jeg har fulgt ditt arbeid innen [spesifikt område] med stor 
-interesse, særlig [spesifikt prosjekt/artikkel de delte].
-
-Som nyutdannet jurist med sterkt ønske om å spesialisere meg 
-innen immaterialrett, lurer jeg på om du har 15 minutter til 
-en uformell kaffe for å dele råd om veien inn i IP-bransjen?
-
-Jeg setter stor pris på innsikten din!
-
-Beste hilsen,
-[Ditt navn]</pre>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab 6: Kalender -->
-        <div id="tab6" class="tab-content">
-            <div class="motivational">
-                "Konsistens er nøkkelen! Følg planen, se resultatene."
-            </div>
-
-            <div class="section">
-                <h2>3 måneders content-plan</h2>
-
-                <h3>Måned 1: Etablering</h3>
-                <div class="grid-container">
-                    <div class="week-card">
-                        <h4>Uke 1</h4>
-                        <p>Optimaliser profil</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 2</h4>
-                        <p>Første post (del IP-nyhet)</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 3</h4>
-                        <p>Del læring fra bok/artikkel</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 4</h4>
-                        <p>Refleksjon om IP-tema</p>
-                    </div>
-                </div>
-
-                <h3 style="margin-top:2rem">Måned 2: Konsistens</h3>
-                <div class="grid-container">
-                    <div class="week-card">
-                        <h4>Uke 1</h4>
-                        <p>IP-nyhet + kommentar</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 2</h4>
-                        <p>"Jeg lærte dette"-post</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 3</h4>
-                        <p>Tankeledelse-post</p>
-                    </div>
-                    <div class="week-card">
-                        <h4>Uke 4</h4>
-                        <p>Arrangement/networking-post</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab 7: Målinger -->
-        <div id="tab7" class="tab-content">
-            <div class="motivational">
-                "Mål fremgangen din og juster kursen underveis."
-            </div>
-
-            <div class="section">
-                <h2>Hva skal du måle?</h2>
-                <ul class="checklist">
-                    <li onclick="toggleCheck(this)">Profilvisninger (øker de?)</li>
-                    <li onclick="toggleCheck(this)">Engasjement på innlegg</li>
-                    <li onclick="toggleCheck(this)">Nye forbindelser i IP-bransjen</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>Dos and Don'ts</h2>
-                <div class="dos-donts">
-                    <div class="do-box">
-                        <h4>GJØR:</h4>
-                        <ul>
-                            <li>Følg IP-nyheter</li>
-                            <li>Kommenter gjennomtenkt</li>
-                            <li>Del hva du lærer</li>
-                        </ul>
-                    </div>
-                    <div class="dont-box">
-                        <h4>IKKE GJØR:</h4>
-                        <ul>
-                            <li>Spam-like alt</li>
-                            <li>Poster bare CV-oppdateringer</li>
-                            <li>Vær negativ</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
     <footer class="footer">
-        <div class="container">
-            <h3>Frida, du får dette! 🎯</h3>
-            <p>Husk: Konsistens, autentisitet og genuint engasjement er nøkkelen til suksess.</p>
-            <p>Lykke til med reisen mot Bryn Aarflot!</p>
-            <button class="btn-print" onclick="window.print()">Skriv ut planen</button>
-        </div>
+        <h2>"Ditt nettverk er din nettoverdi"</h2>
+        <p>Lykke til på reisen, Frida. Dette klarer du!</p>
+        <br>
+        <button onclick="window.print()"
+            style="background:transparent; border:1px solid #C5A059; color:#C5A059; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+            Skriv ut Roadmap
+        </button>
     </footer>
 
     <script>
-        // Tab Functionality
-        function openTab(tabName, btnElement) {
-            // Hide all tabs
-            const tabContents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
+        // Reveal on Scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.milestone').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Checklist Logic
+        function toggleCheck(li) {
+            li.classList.toggle('checked');
+            const icon = li.querySelector('i');
+            if (li.classList.contains('checked')) {
+                icon.classList.remove('far', 'fa-circle');
+                icon.classList.add('fas', 'fa-check-circle');
+            } else {
+                icon.classList.remove('fas', 'fa-check-circle');
+                icon.classList.add('far', 'fa-circle');
             }
-
-            // Remove active from all buttons
-            const tabButtons = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove("active");
-            }
-
-            // Show selected tab and activate button
-            document.getElementById(tabName).classList.add("active");
-            btnElement.classList.add("active");
-        }
-
-        // Checklist Functionality
-        function toggleCheck(element) {
-            element.classList.toggle("checked");
-            updateProgress();
             saveProgress();
+            updateProgress();
         }
 
         // Progress Logic
         function updateProgress() {
-            const items = document.querySelectorAll(".checklist li");
-            const checked = document.querySelectorAll(".checklist li.checked");
+            const items = document.querySelectorAll('.checklist li');
+            const checked = document.querySelectorAll('.checklist li.checked');
+            const percent = Math.round((checked.length / items.length) * 100);
 
-            if (items.length === 0) return;
-
-            const percent = (checked.length / items.length) * 100;
-
-            document.getElementById("progressBar").style.width = percent + "%";
-            document.getElementById("progressText").innerText = Math.round(percent) + "% fullført";
+            document.getElementById('progressText').innerText = percent + "%";
+            document.getElementById('progressCircle').style.background = `conic-gradient(var(--gold) ${percent}%, var(--off-white) ${percent}%)`;
         }
 
-        // Storage Logic
         function saveProgress() {
-            const checkedState = [];
-            const items = document.querySelectorAll(".checklist li");
-
-            items.forEach((item, index) => {
-                if (item.classList.contains("checked")) {
-                    checkedState.push(index);
-                }
+            const state = [];
+            document.querySelectorAll('.checklist li').forEach((item, index) => {
+                if (item.classList.contains('checked')) state.push(index);
             });
-
-            localStorage.setItem("fridaProgress", JSON.stringify(checkedState));
+            localStorage.setItem('roadmapProgress', JSON.stringify(state));
         }
 
         function loadProgress() {
-            const saved = localStorage.getItem("fridaProgress");
+            const saved = JSON.parse(localStorage.getItem('roadmapProgress'));
             if (saved) {
-                const indices = JSON.parse(saved);
-                const items = document.querySelectorAll(".checklist li");
-
-                indices.forEach(index => {
-                    if (items[index]) {
-                        items[index].classList.add("checked");
+                const items = document.querySelectorAll('.checklist li');
+                saved.forEach(idx => {
+                    if (items[idx]) {
+                        items[idx].classList.add('checked');
+                        items[idx].querySelector('i').classList.remove('far', 'fa-circle');
+                        items[idx].querySelector('i').classList.add('fas', 'fa-check-circle');
                     }
                 });
                 updateProgress();
             }
         }
 
-        // Init
-        window.onload = function () {
-            loadProgress();
-        };
+        window.onload = loadProgress;
+
     </script>
 </body>
 

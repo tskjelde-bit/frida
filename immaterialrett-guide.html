@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immaterialrett – Kort Fortalt | Juridisk Oppslagsverk</title>
+    <style>
+        :root {
+            --primary: #722f37;
+            --primary-light: #8b3a44;
+            --primary-dark: #4a1c22;
+            --accent: #d4af37;
+            --accent-light: #e6c65a;
+            --background: #faf8f5;
+            --card-bg: #ffffff;
+            --text: #2d2a26;
+            --text-light: #5a564f;
+            --border: #e8e4de;
+            --success: #4a7c59;
+            --warning: #b8860b;
+            --info: #5b7fa3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        header .meta {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary);
+            padding: 0.75rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--primary-dark);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Search */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            background: var(--card-bg);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Topic Card */
+        .topic-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(114, 47, 55, 0.08);
+            overflow: hidden;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .topic-card:hover {
+            box-shadow: 0 4px 16px rgba(114, 47, 55, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .card-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .topic-card.expanded .card-toggle {
+            transform: rotate(45deg);
+        }
+
+        .card-content {
+            display: none;
+            padding: 1.25rem;
+        }
+
+        .topic-card.expanded .card-content {
+            display: block;
+        }
+
+        /* Legal Reference */
+        .legal-ref {
+            margin-bottom: 1rem;
+        }
+
+        .legal-ref:last-child {
+            margin-bottom: 0;
+        }
+
+        .ref-type {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .ref-type.lov {
+            background: #e8f0e8;
+            color: var(--success);
+        }
+
+        .ref-type.forskrift {
+            background: #fdf5e6;
+            color: var(--warning);
+        }
+
+        .ref-type.rettspraksis {
+            background: #e8f0f8;
+            color: var(--info);
+        }
+
+        .ref-type.prinsipp {
+            background: #f5e8f0;
+            color: var(--primary);
+        }
+
+        .ref-type.eu {
+            background: #e0e8f0;
+            color: #3d5a80;
+        }
+
+        .ref-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .ref-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .ref-section {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Subsection */
+        .subsection {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+        }
+
+        .subsection-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Key Points List */
+        .key-points {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-points li {
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .key-points li:last-child {
+            border-bottom: none;
+        }
+
+        .key-points li::before {
+            content: "©";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #faf5f0;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .info-box.warning {
+            border-left-color: var(--warning);
+            background: #fefaf0;
+        }
+
+        .info-box.tip {
+            border-left-color: var(--success);
+            background: #f5faf5;
+        }
+
+        /* Overview Section */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .overview-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(114, 47, 55, 0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .overview-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .overview-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .overview-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .overview-card .count {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Table */
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .ref-table th, .ref-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ref-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+
+        .ref-table tr:hover {
+            background: #faf5f0;
+        }
+
+        /* Duration Table */
+        .duration-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .duration-table th, .duration-table td {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        .duration-table th {
+            background: var(--primary-light);
+            color: white;
+        }
+
+        .duration-table .duration {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .disclaimer {
+            max-width: 800px;
+            margin: 1rem auto 0;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* Print styles */
+        @media print {
+            nav { display: none; }
+            .search-container { display: none; }
+            .topic-card.expanded .card-content { display: block !important; }
+            .section { display: block !important; page-break-inside: avoid; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .nav-btn { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📜 Immaterialrett – Kort Fortalt</h1>
+        <p class="subtitle">Interaktivt oppslagsverk for norsk immaterialrett og IP</p>
+        <p class="meta">Sist oppdatert: Februar 2026 | For juridiske praktikere</p>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" data-section="oversikt">Oversikt</button>
+            <button class="nav-btn" data-section="opphavsrett">Opphavsrett</button>
+            <button class="nav-btn" data-section="patentrett">Patentrett</button>
+            <button class="nav-btn" data-section="varemerke">Varemerkerett</button>
+            <button class="nav-btn" data-section="design">Designrett</button>
+            <button class="nav-btn" data-section="foretaksnavn">Foretaksnavn</button>
+            <button class="nav-btn" data-section="markedsforing">Markedsføringsrett</button>
+            <button class="nav-btn" data-section="forretningshemmeligheter">Forretningshemmeligheter</button>
+            <button class="nav-btn" data-section="domenenavn">Domenenavn</button>
+            <button class="nav-btn" data-section="lisens">Lisensavtaler</button>
+            <button class="nav-btn" data-section="handheving">Håndhevelse</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Søk etter lov, paragraf, emne eller stikkord..." id="searchInput">
+        </div>
+
+        <!-- OVERSIKT -->
+        <section id="oversikt" class="section active">
+            <h2 class="section-title">Oversikt over immaterialretten</h2>
+
+            <div class="info-box">
+                <strong>Immaterialrett</strong> (også kalt industriell rettsbeskyttelse eller IP-rett) omfatter rettsregler som gir enerett til utnyttelse av immaterielle verdier – skapelser av intellektuell karakter. Formålet er å beskytte investeringer, fremme innovasjon og hindre illojal konkurranse.
+            </div>
+
+            <div class="overview-grid">
+                <div class="overview-card" data-goto="opphavsrett">
+                    <h4>Opphavsrett</h4>
+                    <p>Vern av litterære og kunstneriske verk, verkshøyde</p>
+                    <span class="count">Åndsverkloven 2018</span>
+                </div>
+                <div class="overview-card" data-goto="patentrett">
+                    <h4>Patentrett</h4>
+                    <p>Beskyttelse av oppfinnelser, nyhet og oppfinnelseshøyde</p>
+                    <span class="count">Patentloven 1967</span>
+                </div>
+                <div class="overview-card" data-goto="varemerke">
+                    <h4>Varemerkerett</h4>
+                    <p>Kjennetegnsbeskyttelse, særpreg og forvekslingsfare</p>
+                    <span class="count">Varemerkeloven 2010</span>
+                </div>
+                <div class="overview-card" data-goto="design">
+                    <h4>Designrett</h4>
+                    <p>Beskyttelse av produkters utseende og form</p>
+                    <span class="count">Designloven 2003</span>
+                </div>
+                <div class="overview-card" data-goto="foretaksnavn">
+                    <h4>Foretaksnavn</h4>
+                    <p>Vern av firmanavn og forretningskjennetegn</p>
+                    <span class="count">Foretaksnavneloven 1985</span>
+                </div>
+                <div class="overview-card" data-goto="markedsforing">
+                    <h4>Markedsføringsrett</h4>
+                    <p>Etterligningsvern og god forretningsskikk</p>
+                    <span class="count">Markedsføringsloven §§ 25, 30</span>
+                </div>
+                <div class="overview-card" data-goto="forretningshemmeligheter">
+                    <h4>Forretningshemmeligheter</h4>
+                    <p>Vern av konfidensiell forretningsinformasjon</p>
+                    <span class="count">Forretningshemmelighetsloven 2020</span>
+                </div>
+                <div class="overview-card" data-goto="domenenavn">
+                    <h4>Domenenavn</h4>
+                    <p>Registrering og tvister om internettdomener</p>
+                    <span class="count">Domeneforskriften + NORID</span>
+                </div>
+                <div class="overview-card" data-goto="lisens">
+                    <h4>Lisensavtaler</h4>
+                    <p>Overdragelse og lisensiering av IP-rettigheter</p>
+                    <span class="count">Avtalerett + særlover</span>
+                </div>
+                <div class="overview-card" data-goto="handheving">
+                    <h4>Håndhevelse</h4>
+                    <p>Sanksjoner, midlertidig forføyning og tollbeslag</p>
+                    <span class="count">Tvisteloven + tolloven</span>
+                </div>
+            </div>
+
+            <h3 style="margin: 2rem 0 1rem; color: var(--primary);">Beskyttelsestid – Sammenligning</h3>
+            <table class="duration-table">
+                <thead>
+                    <tr>
+                        <th>Rettighet</th>
+                        <th>Varighet</th>
+                        <th>Registrering</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Opphavsrett</td>
+                        <td class="duration">70 år etter opphavers død</td>
+                        <td>Nei (automatisk)</td>
+                    </tr>
+                    <tr>
+                        <td>Nærstående rettigheter</td>
+                        <td class="duration">50/70 år</td>
+                        <td>Nei (automatisk)</td>
+                    </tr>
+                    <tr>
+                        <td>Patent</td>
+                        <td class="duration">Maks 20 år fra søknad</td>
+                        <td>Ja (obligatorisk)</td>
+                    </tr>
+                    <tr>
+                        <td>Supplerende beskyttelsessertifikat</td>
+                        <td class="duration">Maks 5 år</td>
+                        <td>Ja (obligatorisk)</td>
+                    </tr>
+                    <tr>
+                        <td>Varemerke (registrert)</td>
+                        <td class="duration">10 år, ubegrenset fornyelse</td>
+                        <td>Ja (eller innarbeidelse)</td>
+                    </tr>
+                    <tr>
+                        <td>Design</td>
+                        <td class="duration">Maks 25 år (5+5+5+5+5)</td>
+                        <td>Ja (obligatorisk)</td>
+                    </tr>
+                    <tr>
+                        <td>Foretaksnavn</td>
+                        <td class="duration">Så lenge i bruk</td>
+                        <td>Nei (registrering = vern)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin: 2rem 0 1rem; color: var(--primary);">Sentrale lover – Hurtigreferanse</h3>
+            <table class="ref-table">
+                <thead>
+                    <tr>
+                        <th>Lov</th>
+                        <th>Forkortelse</th>
+                        <th>Hovedinnhold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lov om opphavsrett til åndsverk mv. (2018)</td>
+                        <td>åvl.</td>
+                        <td>Opphavsrett, nærstående rettigheter</td>
+                    </tr>
+                    <tr>
+                        <td>Lov om patenter (1967)</td>
+                        <td>patl.</td>
+                        <td>Patentbeskyttelse for oppfinnelser</td>
+                    </tr>
+                    <tr>
+                        <td>Lov om beskyttelse av varemerker (2010)</td>
+                        <td>vml.</td>
+                        <td>Varemerkeregistrering og innarbeidelse</td>
+                    </tr>
+                    <tr>
+                        <td>Lov om beskyttelse av design (2003)</td>
+                        <td>dsl.</td>
+                        <td>Designbeskyttelse</td>
+                    </tr>
+                    <tr>
+                        <td>Lov om enerett til foretaksnavn mv. (1985)</td>
+                        <td>ftnavnl.</td>
+                        <td>Foretaksnavn og forretningskjennetegn</td>
+                    </tr>
+                    <tr>
+                        <td>Lov om kontroll med markedsføring mv. (2009)</td>
+                        <td>mfl.</td>
+                        <td>Markedsføringsregler, etterligningsvern</td>
+                    </tr>
+                    <tr>
+                        <td>Lov om vern av forretningshemmeligheter (2020)</td>
+                        <td>fhml.</td>
+                        <td>Beskyttelse av bedriftshemmeligheter</td>
+                    </tr>
+                    <tr>
+                        <td>Lov om planteforedlerrett (1993)</td>
+                        <td>plfl.</td>
+                        <td>Enerett til nye plantesorter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- OPPHAVSRETT -->
+        <section id="opphavsrett" class="section">
+            <h2 class="section-title">Opphavsrett</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Verkshøydekravet (§ 2)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 2 første ledd</div>
+                            <div class="ref-desc">"Den som skaper et åndsverk, har opphavsrett til verket, og betegnes som opphaver."</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 2 andre ledd</div>
+                            <div class="ref-desc">"Med åndsverk forstås i denne loven litterære eller kunstneriske verk av enhver art, som er <strong>uttrykk for original og individuell skapende åndsinnsats</strong>."</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Krav til verkshøyde</div>
+                            <ul class="key-points">
+                                <li><strong>Originalitet:</strong> Må være resultat av skapende innsats</li>
+                                <li><strong>Individuelt preg:</strong> Må bære uttrykk for opphaverens personlighet</li>
+                                <li><strong>Ikke kvalitetskrav:</strong> Estetisk kvalitet er irrelevant</li>
+                                <li><strong>Bare uttrykket vernes:</strong> Ideer, fakta og metoder er fri</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <strong>Grense nedad:</strong> Enkle, banale frembringelser uten kreativt preg oppnår ikke vern (f.eks. telefonkatalog sortert alfabetisk).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Opphavsrettens innhold</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 3 (økonomiske rettigheter)</div>
+                            <div class="ref-desc">Enerett til <strong>eksemplarfremstilling</strong> og <strong>tilgjengeliggjøring for allmennheten</strong>.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Tilgjengeliggjøring omfatter</div>
+                            <ul class="key-points">
+                                <li><strong>Spredning:</strong> Salg, utleie, utlån av eksemplarer</li>
+                                <li><strong>Visning:</strong> Fremvisning uten tekniske hjelpemidler</li>
+                                <li><strong>Fremføring:</strong> Direkte fremføring for tilstedeværende</li>
+                                <li><strong>Overføring:</strong> Kringkasting, strømming, internett</li>
+                            </ul>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 5 (ideelle rettigheter)</div>
+                            <div class="ref-desc"><strong>Navngivelsesrett</strong> og <strong>respektrett</strong> – kan ikke overdras fullt ut.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Verkstyper (§ 2 andre ledd)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="subsection">
+                            <div class="subsection-title">Lovens eksempler</div>
+                            <ul class="key-points">
+                                <li>Tekster (skjønnlitteratur, faglitteratur, kildekode)</li>
+                                <li>Muntlige foredrag</li>
+                                <li>Sceneverk (teater, opera, ballett)</li>
+                                <li>Musikkverk (med/uten tekst)</li>
+                                <li>Filmverk og fotografiske verk</li>
+                                <li>Malerier, tegninger, grafikk</li>
+                                <li>Skulpturer, bygningskunst</li>
+                                <li>Brukskunst, kunsthåndverk</li>
+                                <li>Kart, tegninger av vitenskapelig art</li>
+                                <li>Datamaskinprogrammer</li>
+                                <li>Oversettelser og bearbeidelser</li>
+                            </ul>
+                        </div>
+                        <div class="info-box tip">
+                            <strong>Ikke uttømmende:</strong> Listen er veiledende – nye verkstyper kan oppstå.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Vernetid (§ 11)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 11</div>
+                            <div class="ref-desc">Opphavsretten varer i <strong>opphaverens levetid + 70 år</strong> etter utløpet av dødsåret.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Særregler</div>
+                            <ul class="key-points">
+                                <li><strong>Fellesverk:</strong> 70 år etter lengstlevendes død</li>
+                                <li><strong>Anonyme verk:</strong> 70 år etter offentliggjøring</li>
+                                <li><strong>Filmverk:</strong> 70 år etter lengstlevende hovedbidragsyters død</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Nærstående rettigheter (kap. 2)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 16</div>
+                            <div class="ref-desc"><strong>Utøvende kunstnere:</strong> Enerett til opptak og tilgjengeliggjøring av fremføring. Vern i 50 år (70 år for lydopptak).</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 20</div>
+                            <div class="ref-desc"><strong>Tilvirkerens rett:</strong> Produsenter av lyd-/filmopptak har enerett i 50/70 år.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 23</div>
+                            <div class="ref-desc"><strong>Fotografier uten verkshøyde:</strong> Vern i 15 år etter utløpet av opptaksåret, maks 50 år etter offentliggjøring.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 24</div>
+                            <div class="ref-desc"><strong>Databasevern (sui generis):</strong> Vesentlig investering gir vern i 15 år.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Avgrensninger og fribruk (kap. 3)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 26</div>
+                            <div class="ref-desc"><strong>Privatkopiering:</strong> Tillatt å fremstille eksemplar til privat bruk.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 29</div>
+                            <div class="ref-desc"><strong>Sitatrett:</strong> Tillatt å sitere fra offentliggjort verk i samsvar med god skikk og i den utstrekning formålet betinger.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 36</div>
+                            <div class="ref-desc"><strong>Undervisning:</strong> Særregler for bruk i undervisningsvirksomhet.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 37</div>
+                            <div class="ref-desc"><strong>Bibliotek og arkiv:</strong> Spesielle unntak for bevaring og tilgang.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Sentral rettspraksis</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2007 s. 1329 (Huldra i Kjosfossen)</div>
+                            <div class="ref-desc">Grunnleggende om verkshøydekravet: "resultat av en individuelt preget skapende innsats, og ved denne innsatsen må det være frembrakt noe som fremstår som originalt."</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2012 s. 1062 (Tripp Trapp)</div>
+                            <div class="ref-desc">Opphavsrett til brukskunst – barnestol hadde verkshøyde. Etterligning krenket opphavsretten.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">HR-2017-2165-A (Il Tempo Gigante)</div>
+                            <div class="ref-desc">Rekkevidden av bearbeidelsesretten etter åvl. § 6 (nå § 6).</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2010 s. 366 (Mauseth)</div>
+                            <div class="ref-desc">Sitatretten og grensene for bruk av filmklipp.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PATENTRETT -->
+        <section id="patentrett" class="section">
+            <h2 class="section-title">Patentrett</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Tre hovedvilkår for patent</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 1</div>
+                            <div class="ref-desc">"Den som har gjort en oppfinnelse som kan utnyttes industrielt, eller den som oppfinnerens rett er gått over til, kan etter søknad få patent på oppfinnelsen."</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 2</div>
+                            <div class="ref-desc">Oppfinnelsen må være <strong>ny</strong> og <strong>skille seg vesentlig</strong> fra kjent teknikk (oppfinnelseshøyde).</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">1. Nyhet (§ 2 første ledd)</div>
+                            <ul class="key-points">
+                                <li>Må være ny i forhold til alt som var kjent <strong>før søknadsdagen</strong></li>
+                                <li>Global nyhetsvurdering – alt publisert materiale</li>
+                                <li>Nyhetsskadelig: egen publisering før søknad</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">2. Oppfinnelseshøyde (§ 2 første ledd)</div>
+                            <ul class="key-points">
+                                <li>Må "skille seg vesentlig" fra kjent teknikk</li>
+                                <li>Ikke nærliggende for fagperson på området</li>
+                                <li>Må representere et "oppfinnerisk sprang"</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">3. Industriell anvendelse (§ 1)</div>
+                            <ul class="key-points">
+                                <li>Må kunne utnyttes industrielt</li>
+                                <li>Teknisk karakter – løser problem ved naturkrefter</li>
+                                <li>Reproduserbar – samme resultat hver gang</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Hva kan ikke patenteres (§ 1)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 1 andre-fjerde ledd</div>
+                            <div class="ref-desc">Visse kategorier er uttrykkelig unntatt fra patentvern.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Ikke oppfinnelser</div>
+                            <ul class="key-points">
+                                <li>Oppdagelser, vitenskapelige teorier, matematiske metoder</li>
+                                <li>Kunstneriske frembringelser</li>
+                                <li>Planer, regler og metoder for intellektuell virksomhet</li>
+                                <li>Datamaskinprogrammer (som sådan)</li>
+                                <li>Fremlegging av informasjon</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Etiske unntak (§ 1b)</div>
+                            <ul class="key-points">
+                                <li>Fremgangsmåter for kloning av mennesker</li>
+                                <li>Bruk av menneskelige embryoer industrielt</li>
+                                <li>Fremgangsmåter for modifikasjon av dyrs arvemasse</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Patentets omfang og varighet</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 39</div>
+                            <div class="ref-desc">Patentkravene bestemmer patentvernets omfang.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 40</div>
+                            <div class="ref-desc">Patent varer i <strong>20 år fra søknadsdagen</strong>, forutsatt årsavgifter betales.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 62a (SPC)</div>
+                            <div class="ref-desc"><strong>Supplerende beskyttelsessertifikat:</strong> Inntil 5 års forlengelse for legemidler og plantevernmidler.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Europeisk patent (EPC)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type eu">Internasjonal</span>
+                            <div class="ref-title">Den europeiske patentkonvensjonen (EPC)</div>
+                            <div class="ref-desc">Norge er medlem. Europeisk patent med virkning i Norge behandles av EPO, men valideres nasjonalt.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven kapittel 10</div>
+                            <div class="ref-desc">Bestemmelser om europeiske patenter med virkning i Norge.</div>
+                        </div>
+                        <div class="info-box warning">
+                            <strong>Merk:</strong> Norge er IKKE med i Enhetspatentordningen (UPC). Europeiske patenter må fortsatt valideres separat i Norge.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Sentral rettspraksis</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2008 s. 1555 (Biomar)</div>
+                            <div class="ref-desc">Tolkning av patentkrav – utgangspunkt i kravenes ordlyd, men beskrivelsen kan påvirke tolkningen.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2009 s. 1055 (Donepezil)</div>
+                            <div class="ref-desc">Vurdering av oppfinnelseshøyde for legemiddelpatent.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">HR-2020-1142-A (Sawmill)</div>
+                            <div class="ref-desc">Om ekvivalenslæren ved patentkrenkelse.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VAREMERKE -->
+        <section id="varemerke" class="section">
+            <h2 class="section-title">Varemerkerett</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Oppnåelse av varemerkerett (§ 3)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 3 første ledd</div>
+                            <div class="ref-desc">Varemerkerett kan oppnås ved <strong>registrering</strong> eller ved <strong>innarbeidelse</strong>.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 3 tredje ledd</div>
+                            <div class="ref-desc"><strong>Innarbeidelse:</strong> Merket er "godt kjent som noens særlige kjennetegn" i omsetningskretsen.</div>
+                        </div>
+                        <div class="info-box">
+                            <strong>Samme merke, dobbelt vern:</strong> Et varemerke kan være beskyttet både gjennom registrering og innarbeidelse samtidig.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Registreringsvilkår – Særpreg (§ 14)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 14 første ledd</div>
+                            <div class="ref-desc">Et varemerke kan bare registreres hvis det har <strong>særpreg som kjennetegn</strong> for varene/tjenestene.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 14 andre ledd</div>
+                            <div class="ref-desc"><strong>Absolutte registreringshindre:</strong> Beskrivende tegn, alminnelige betegnelser, villedende merker mv.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Kan ikke registreres (§ 14 andre ledd)</div>
+                            <ul class="key-points">
+                                <li>Tegn som <strong>utelukkende beskriver</strong> egenskaper ved varen/tjenesten</li>
+                                <li>Tegn som er <strong>alminnelig betegnelse</strong> for varen/tjenesten</li>
+                                <li>Tegn som bare angir <strong>varens art, kvalitet, mengde, formål</strong></li>
+                                <li>Former som følger av <strong>varens art</strong> eller gir <strong>teknisk virkning</strong></li>
+                            </ul>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 14 tredje ledd</div>
+                            <div class="ref-desc"><strong>Opparbeidet særpreg:</strong> Merke kan oppnå særpreg gjennom bruk.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Enerettens innhold (§ 4)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 4 første ledd</div>
+                            <div class="ref-desc"><strong>Enerett:</strong> Ingen kan uten samtykke bruke identiske/lignende tegn for samme/lignende varer hvis det er <strong>risiko for forveksling</strong>.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 4 andre ledd</div>
+                            <div class="ref-desc"><strong>Kodakvern:</strong> For <em>velkjente</em> merker gjelder eneretten også for ulike varer/tjenester hvis bruken medfører urimelig utnyttelse eller skade på merkets anseelse.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Forvekslingsvurderingen</div>
+                            <ul class="key-points">
+                                <li><strong>Kjennetegnslikhet:</strong> Visuell, fonetisk og konseptuell likhet</li>
+                                <li><strong>Vareslagslikhet:</strong> Samme eller lignende varer/tjenester</li>
+                                <li><strong>Helhetsvurdering:</strong> Gjennomsnittsforbrukerens oppfatning</li>
+                                <li><strong>Samvirke:</strong> Sterk kjennetegnslikhet kan kompensere for svak vareslagslikhet</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Relative registreringshindre (§ 16)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 16</div>
+                            <div class="ref-desc">Et varemerke kan ikke registreres hvis det er forvekselbart med eldre rettigheter.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Eldre rettigheter omfatter</div>
+                            <ul class="key-points">
+                                <li>Registrerte varemerker med eldre prioritet</li>
+                                <li>Innarbeidede varemerker</li>
+                                <li>Foretaksnavn (ftnavnl.)</li>
+                                <li>Opphavsrettslig beskyttede verk</li>
+                                <li>Personnavn, portrett</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Varighet og fornyelse (§§ 32-33)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 32</div>
+                            <div class="ref-desc">Registrering gjelder i <strong>10 år fra søknadsdagen</strong>.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 33</div>
+                            <div class="ref-desc">Kan fornyes <strong>ubegrenset antall ganger</strong> for 10 år av gangen.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 37</div>
+                            <div class="ref-desc"><strong>Bruksplikt:</strong> Merket kan slettes hvis ikke tatt i reell bruk innen 5 år.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Sentral rettspraksis</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2002 s. 391 (Gule Sider)</div>
+                            <div class="ref-desc">Om særpreg – "Gule Sider" hadde oppnådd særpreg gjennom bruk.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2008 s. 1268 (Søtt+Salt)</div>
+                            <div class="ref-desc">Forvekslingsvurdering og kjennetegnslikhet.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">HR-2016-2239-A (ROUTE 66)</div>
+                            <div class="ref-desc">Bruksplikten – hva utgjør "reell bruk"?</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">HR-2018-110-A (PANGEA)</div>
+                            <div class="ref-desc">Forvekslingsfare mellom kjennetegn.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESIGN -->
+        <section id="design" class="section">
+            <h2 class="section-title">Designrett</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Designbegrepet (§ 2)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 2 nr. 1</div>
+                            <div class="ref-desc"><strong>Design:</strong> Utseendet til et produkt eller en del av et produkt, særlig linjer, konturer, farger, form, struktur, materiale eller ornamentering.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 2 nr. 2</div>
+                            <div class="ref-desc"><strong>Produkt:</strong> Enhver industrielt eller håndverksmessig fremstilt gjenstand, inkludert emballasje, utstyr, grafiske symboler og typografiske skrifttyper.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Registreringsvilkår (§§ 3, 7)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 3</div>
+                            <div class="ref-desc">Design kan registreres hvis det er <strong>nytt</strong> og har <strong>individuell karakter</strong>.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">1. Nyhet (§ 4)</div>
+                            <ul class="key-points">
+                                <li>Ingen identisk design gjort allment tilgjengelig tidligere</li>
+                                <li><strong>Nyhetsunntak (§ 6):</strong> 12 måneders frist fra egen offentliggjøring</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">2. Individuell karakter (§ 5)</div>
+                            <ul class="key-points">
+                                <li>Helhetsinntrykket må skille seg fra tidligere design</li>
+                                <li>Vurderes ut fra "informert bruker"</li>
+                                <li>Designerens frihet på området er relevant</li>
+                            </ul>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 7</div>
+                            <div class="ref-desc"><strong>Absolutte hindre:</strong> Design i strid med offentlig orden/moral, statsflagg mv.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Unntak fra vern (§ 8)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 8 første ledd</div>
+                            <div class="ref-desc"><strong>Teknisk funksjon:</strong> Trekk som utelukkende er bestemt av teknisk funksjon kan ikke registreres.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 8 andre ledd</div>
+                            <div class="ref-desc"><strong>Must-fit:</strong> Trekk som må være utformet på bestemt måte for å passe til annet produkt.</div>
+                        </div>
+                        <div class="info-box">
+                            <strong>Reservedeler:</strong> Begrenset vern – kan bare fornyes én gang (maks 10 år).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Varighet og omfang</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 23</div>
+                            <div class="ref-desc">Registrering gjelder i <strong>5 år</strong>, kan fornyes 4 ganger. <strong>Maks 25 år</strong>.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Designloven § 9</div>
+                            <div class="ref-desc"><strong>Enerett:</strong> Rett til å utnytte designet og forby andre å bruke design som gir samme helhetsinntrykk.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Sentral rettspraksis</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 2012 s. 1062 (Tripp Trapp)</div>
+                            <div class="ref-desc">Også relevant for design – grensen mellom opphavsrett og designvern for bruksgjenstander.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type eu">EU-domstolen</span>
+                            <div class="ref-title">C-395/16 (Doceram)</div>
+                            <div class="ref-desc">Tolkning av unntaket for teknisk bestemte trekk.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORETAKSNAVN -->
+        <section id="foretaksnavn" class="section">
+            <h2 class="section-title">Foretaksnavn</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Enerett til foretaksnavn (§§ 3-1 til 3-3)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 3-1</div>
+                            <div class="ref-desc">Rett til foretaksnavn oppnås ved <strong>registrering</strong> i Foretaksregisteret.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 3-2</div>
+                            <div class="ref-desc"><strong>Enerettens virkning:</strong> Ingen kan bruke forvekselbart foretaksnavn/varemerke for virksomhet av samme eller lignende slag.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 3-3</div>
+                            <div class="ref-desc"><strong>Velkjente foretaksnavn:</strong> Utvidet vern også for ulik virksomhet ved urimelig utnyttelse/skade.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Krav til foretaksnavn (§§ 2-1 til 2-6)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 2-1</div>
+                            <div class="ref-desc">Må bestå av minst tre bokstaver fra norsk alfabet. Må inneholde riktig foretaksbetegnelse (AS, ASA, etc.).</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 2-3</div>
+                            <div class="ref-desc">Må ha <strong>særpreg</strong> som kjennetegn for foretaket – samme krav som for varemerker.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 2-5</div>
+                            <div class="ref-desc">Kan ikke stride mot lov, offentlig orden eller moral.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 2-6</div>
+                            <div class="ref-desc">Kan ikke være egnet til å villede.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Sekundære forretningskjennetegn</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Foretaksnavneloven § 1-1 tredje ledd</div>
+                            <div class="ref-desc">Særlige betegnelser som et foretak bruker som kjennetegn, f.eks. kortformer, akronymer.</div>
+                        </div>
+                        <div class="info-box">
+                            <strong>Eksempel:</strong> "DNB" som sekundært kjennetegn for Den Norske Bank ASA.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARKEDSFØRING -->
+        <section id="markedsforing" class="section">
+            <h2 class="section-title">Markedsføringsrett</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>God forretningsskikk (§ 25)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Markedsføringsloven § 25</div>
+                            <div class="ref-desc"><strong>Generalklausul:</strong> "I næringsvirksomhet må det ikke foretas handling som strider mot god forretningsskikk næringsdrivende imellom."</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Typiske brudd</div>
+                            <ul class="key-points">
+                                <li>Illojal utnyttelse av andres innsats</li>
+                                <li>Snylting på goodwill</li>
+                                <li>Systematisk ettergjøring utover § 30</li>
+                                <li>Villedende markedsføring i B2B</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <strong>Rettslig standard:</strong> Innholdet fastlegges gjennom praksis fra domstolene og Næringslivets Konkurranseutvalg (NKU).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Etterligningsvernet (§ 30)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Markedsføringsloven § 30</div>
+                            <div class="ref-desc">Forbud mot etterligning som utgjør "urimelig utnyttelse" av annens innsats og medfører "fare for forveksling".</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">To kumulative vilkår</div>
+                            <ul class="key-points">
+                                <li><strong>Urimelig utnyttelse:</strong> Snylting på andres innsats/resultater</li>
+                                <li><strong>Forvekslingsfare:</strong> Risiko for at forbrukere tar feil</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Hva beskyttes</div>
+                            <ul class="key-points">
+                                <li>Kjennetegn (varemerker, foretaksnavn, domenenavn)</li>
+                                <li>Produkter (utseende, emballasje)</li>
+                                <li>Kataloger, reklamemidler</li>
+                                <li>"Andre frembringelser" (ikke uttømmende)</li>
+                            </ul>
+                        </div>
+                        <div class="info-box tip">
+                            <strong>Variasjonsplikt:</strong> Etterligner må utnytte rimelige muligheter til å variere sin utforming.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Forholdet mellom §§ 25 og 30</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type rettspraksis">Rettspraksis</span>
+                            <div class="ref-title">Rt. 1998 s. 1315 (Iskrem)</div>
+                            <div class="ref-desc">§ 25 kan anvendes ved siden av § 30 hvis det foreligger elementer som ikke fanges opp av spesialbestemmelsen.</div>
+                        </div>
+                        <div class="info-box">
+                            <strong>Supplerende vern:</strong> § 30 er uttømmende for "ren" produktetterligning. § 25 kan gi tilleggsbeskyttelse ved illojale elementer.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Næringslivets Konkurranseutvalg</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-box">
+                            <strong>NKU:</strong> Privat tvisteløsningsorgan som avgir rådgivende uttalelser om §§ 25 og 30. Ikke bindende, men vektlegges ofte av domstolene.
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Fordeler ved NKU</div>
+                            <ul class="key-points">
+                                <li>Rask behandling (2-3 måneder)</li>
+                                <li>Lavere kostnader enn domstol</li>
+                                <li>Bransjeekspertise</li>
+                                <li>Prejudikatsvirkning i praksis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORRETNINGSHEMMELIGHETER -->
+        <section id="forretningshemmeligheter" class="section">
+            <h2 class="section-title">Forretningshemmeligheter</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Definisjon (§ 2)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Forretningshemmelighetsloven § 2</div>
+                            <div class="ref-desc">Informasjon som (a) er <strong>hemmelig</strong>, (b) har <strong>kommersiell verdi</strong> fordi den er hemmelig, og (c) er underlagt <strong>rimelige tiltak</strong> for å holdes hemmelig.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Tre kumulative vilkår</div>
+                            <ul class="key-points">
+                                <li><strong>Hemmelig:</strong> Ikke allment kjent eller lett tilgjengelig</li>
+                                <li><strong>Kommersiell verdi:</strong> Gir konkurransefordel nettopp fordi den er hemmelig</li>
+                                <li><strong>Rimelige tiltak:</strong> Innehaveren har aktivt beskyttet informasjonen</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Ulovlige handlinger (§§ 3-4)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Forretningshemmelighetsloven § 3</div>
+                            <div class="ref-desc"><strong>Inngrep:</strong> Urettmessig tilegnelse, bruk eller formidling av forretningshemmelighet.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Forretningshemmelighetsloven § 4</div>
+                            <div class="ref-desc"><strong>Urettmessig tilegnelse:</strong> Ulovlig adgang, tilegnelse uten samtykke, brudd på konfidensialitetsplikt.</div>
+                        </div>
+                        <div class="info-box">
+                            <strong>"Reverse engineering":</strong> Lovlig å analysere produkter som er allment tilgjengelige for å avdekke hemmeligheter.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Sanksjoner</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Forretningshemmelighetsloven § 5</div>
+                            <div class="ref-desc"><strong>Forbud:</strong> Domstolen kan forby inngrep.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Forretningshemmelighetsloven § 6</div>
+                            <div class="ref-desc"><strong>Korrigerende tiltak:</strong> Tilbakekalling, destruksjon, utlevering av inngripende varer.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Forretningshemmelighetsloven § 7</div>
+                            <div class="ref-desc"><strong>Erstatning:</strong> Vederlag og erstatning for økonomisk tap.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOMENENAVN -->
+        <section id="domenenavn" class="section">
+            <h2 class="section-title">Domenenavn</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>.no-domener og NORID</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type forskrift">Forskrift</span>
+                            <div class="ref-title">Domeneforskriften (FOR-2020-01-21-80)</div>
+                            <div class="ref-desc">Regulerer registrering og administrasjon av .no-domener.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Registreringsvilkår</div>
+                            <ul class="key-points">
+                                <li>Må ha norsk tilknytning (org.nr. eller personnr.)</li>
+                                <li>Først-til-mølla-prinsippet</li>
+                                <li>Navnet kan ikke stride mot lov</li>
+                                <li>Ingen forhåndskontroll mot varemerker</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Domeneklagenemnda (DOK)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-box">
+                            <strong>DOK:</strong> Tvisteløsningsorgan for .no-domener. Kan overføre eller slette domener.
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Vilkår for overføring/sletting</div>
+                            <ul class="key-points">
+                                <li>Domenet er identisk med/forvekselbart med klagers kjennetegn</li>
+                                <li>Registranten har ingen rett eller legitim interesse</li>
+                                <li>Domenet er registrert eller brukes i ond tro</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Internasjonale domener (gTLD)</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type eu">Internasjonal</span>
+                            <div class="ref-title">UDRP (Uniform Domain-Name Dispute-Resolution Policy)</div>
+                            <div class="ref-desc">WIPOs tvisteløsningsprosedyre for gTLD (.com, .net, .org etc.).</div>
+                        </div>
+                        <div class="info-box">
+                            <strong>Cybersquatting:</strong> Registrering av andres varemerker som domenenavn i spekulasjonsøyemed er i strid med UDRP.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LISENS -->
+        <section id="lisens" class="section">
+            <h2 class="section-title">Lisensavtaler</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Overdragelse vs. lisens</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="subsection">
+                            <div class="subsection-title">Overdragelse</div>
+                            <ul class="key-points">
+                                <li>Full overføring av rettighet</li>
+                                <li>Erverver blir ny rettighetshaver</li>
+                                <li>Opprinnelig innehaver mister rådighet</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Lisens</div>
+                            <ul class="key-points">
+                                <li>Brukstillatelse – rettighetshaver beholder eierskap</li>
+                                <li><strong>Eksklusiv lisens:</strong> Bare lisenstaker kan utnytte</li>
+                                <li><strong>Ikke-eksklusiv lisens:</strong> Flere kan ha parallelle lisenser</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Opphavsrett – overdragelse</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 67</div>
+                            <div class="ref-desc">Opphavsrett kan overdras helt eller delvis. Ideelle rettigheter kan bare overdras i begrenset grad.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 68</div>
+                            <div class="ref-desc"><strong>Spesialitetsprinsippet:</strong> Avtale om overdragelse av opphavsrett skal tolkes restriktivt – bare det som klart fremgår, er overdratt.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 69</div>
+                            <div class="ref-desc"><strong>Rimelighetssensur:</strong> Opphaver kan kreve vederlag justert hvis det blir urimelig lavt.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Varemerkelisens</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 53</div>
+                            <div class="ref-desc">Varemerke kan overdras eller lisensiere uavhengig av virksomheten.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 54</div>
+                            <div class="ref-desc">Lisens kan noteres i varemerkeregisteret. Gir vern ved overdragelse av merket.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Patentlisens</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 43</div>
+                            <div class="ref-desc">Patent kan overdras og lisensiere. Registrering av overdragelse kreves for vern mot tredjemann.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven §§ 47-50</div>
+                            <div class="ref-desc"><strong>Tvangslisens:</strong> Kan gis av domstolen ved manglende utnyttelse eller offentlig interesse.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HÅNDHEVELSE -->
+        <section id="handheving" class="section">
+            <h2 class="section-title">Håndhevelse</h2>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Sivilrettslige sanksjoner</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 81</div>
+                            <div class="ref-desc"><strong>Forbud:</strong> Krav om at inngrep stanses.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 81 (tilsv. i andre lover)</div>
+                            <div class="ref-desc"><strong>Vederlag/erstatning:</strong> Rimelig vederlag og erstatning for ytterligere tap.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 58</div>
+                            <div class="ref-desc"><strong>Inndragning:</strong> Krav om ødeleggelse eller utlevering av inngripende varer.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Midlertidig forføyning</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Tvisteloven kap. 34</div>
+                            <div class="ref-desc">Foreløpig sikring – kan få raske forbud før hovedsak er avgjort.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Vilkår</div>
+                            <ul class="key-points">
+                                <li><strong>Sikringskrav:</strong> Sannsynliggjort krav</li>
+                                <li><strong>Sikringsgrunn:</strong> Fare for at formålet forspilles</li>
+                                <li><strong>Forholdsmessighet:</strong> Ikke uforholdsmessig for motparten</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Tollbeslag</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Vareførselsloven kap. 11</div>
+                            <div class="ref-desc">Tollmyndighetene kan holde tilbake varer som krenker immaterielle rettigheter.</div>
+                        </div>
+                        <div class="subsection">
+                            <div class="subsection-title">Prosessen</div>
+                            <ul class="key-points">
+                                <li>Rettighetshaver søker om bistand fra tollmyndighetene</li>
+                                <li>Tollen varsler ved mistanke om krenkelse</li>
+                                <li>Rettighetshaver må bekrefte og evt. gå til domstol</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="card-header">
+                        <h3>Strafferettslige sanksjoner</h3>
+                        <span class="card-toggle">+</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Åndsverkloven § 79</div>
+                            <div class="ref-desc"><strong>Straff:</strong> Forsettlig eller grovt uaktsomt inngrep straffes med bøter eller fengsel inntil 1 år (3 år ved grov overtredelse).</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Varemerkeloven § 61</div>
+                            <div class="ref-desc">Tilsvarende straffebud for varemerkekrenkelse.</div>
+                        </div>
+                        <div class="legal-ref">
+                            <span class="ref-type lov">Lov</span>
+                            <div class="ref-title">Patentloven § 57</div>
+                            <div class="ref-desc">Straffeansvar for forsettlig patentkrenkelse.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Immaterialrett – Kort Fortalt | Interaktivt juridisk oppslagsverk</p>
+        <p class="disclaimer">Dette er et hjelpemiddel for juridisk arbeid. Verifiser alltid rettskilder i originalkildene. Innholdet oppdateres ikke automatisk ved lovendringer.</p>
+    </footer>
+
+    <script>
+        // Toggle cards
+        document.querySelectorAll('.card-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('expanded');
+            });
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sectionId = btn.dataset.section;
+
+                // Update buttons
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Update sections
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Overview card navigation
+        document.querySelectorAll('.overview-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const sectionId = card.dataset.goto;
+                const btn = document.querySelector(`[data-section="${sectionId}"]`);
+                if (btn) btn.click();
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+
+            if (query.length < 2) {
+                // Reset
+                document.querySelectorAll('.topic-card').forEach(card => {
+                    card.style.display = '';
+                });
+                return;
+            }
+
+            // Search all cards
+            document.querySelectorAll('.topic-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = '';
+                    card.classList.add('expanded');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show all sections during search
+            document.querySelectorAll('.section').forEach(s => s.classList.add('active'));
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+
+                // Reset to overview
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById('oversikt').classList.add('active');
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector('[data-section="oversikt"]').classList.add('active');
+            }
+
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        // Expand all cards in current section on double-click header
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.addEventListener('dblclick', () => {
+                const section = title.parentElement;
+                const cards = section.querySelectorAll('.topic-card');
+                const allExpanded = Array.from(cards).every(c => c.classList.contains('expanded'));
+
+                cards.forEach(card => {
+                    if (allExpanded) {
+                        card.classList.remove('expanded');
+                    } else {
+                        card.classList.add('expanded');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
